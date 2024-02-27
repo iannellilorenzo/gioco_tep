@@ -22,20 +22,25 @@
     </footer>
 
     <script>
-        function getGameID() {
+        const myHeader = new Headers();
+        myHeaders.append("Authorization", "Basic NElFOlRpcm9uaQ==");
+
+        //function getGameID() {
             var xhr = new XMLHttpRequest();
             xhr.withCredentials = true;
-            xhr.addEventListener("readystatechange", function() {
-                if (this.readyState === 4) {
+            xhr.onreadystatechange= function() {
+                if (this.status==200 && this.readyState === 4) {
                     console.log(this.responseText);
                 }
-            });
+            };
 
-            xhr.open("POST", "http://classe5ID.alterivista.org/games/partita/IANNELLI_milionario");
+            xhr.open("POST", "http://classe5ID.alterivista.org/games/partita/milionario_Iannelli");
             xhr.setRequestHeader("Authorization", "Basic NElFOlRpcm9uaQ==");
+            xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
 
             xhr.send();
-        }
+            
+        //}
     </script>
   
     <script src="../js/script.js"></script>
