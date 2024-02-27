@@ -1,3 +1,4 @@
-function crea_partita() {
-    windows.location.href = "../html/newgame.html";
+function createGame() {
+    console.log("crea_partita");
+    window.open("../html/newgame.html", "_blank");
 }

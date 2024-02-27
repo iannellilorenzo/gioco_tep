@@ -16,8 +16,9 @@ main {
     padding: 20px;
 }
 
-section {
+.center {
     margin-bottom: 20px;
+    text-align: center;
 }
 
 h1, h2 {

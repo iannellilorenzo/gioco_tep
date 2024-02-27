@@ -11,14 +11,32 @@
     <header class="head">
       <h1>Chi vuol essere milionario!</h1>
     </header>
-    <main>
+    <main class="container">
       <section>
-        <button onclick="crea_partita()">Crea partita</button>
+        <h2>Partita creata!</h2>
+        <h3 onclick="getGameID()">ID della partita:</h3>
       </section>
     </main>
     <footer>
       <p>© 2024 Chi vuol essere milionario! Tutti i diritti riservati.</p>
     </footer>
+
+    <script>
+        function getGameID() {
+            var xhr = new XMLHttpRequest();
+            xhr.withCredentials = true;
+            xhr.addEventListener("readystatechange", function() {
+                if (this.readyState === 4) {
+                    console.log(this.responseText);
+                }
+            });
+
+            xhr.open("POST", "http://classe5ID.alterivista.org/games/partita/IANNELLI_milionario");
+            xhr.setRequestHeader("Authorization", "Basic NElFOlRpcm9uaQ==");
+
+            xhr.send();
+        }
+    </script>
   
     <script src="../js/script.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
