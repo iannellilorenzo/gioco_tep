@@ -6,7 +6,7 @@ body {
     color: #fff;
 }
 
-header {
+.head {
     background-color: #ffcc00;
     padding: 20px;
     text-align: center;
@@ -22,12 +22,7 @@ section {
 
 h1, h2 {
     color: #222;
-}
-
-ul {
-    list-style-type: none;
-    padding: 0;
-}
+} 
 
 footer {
     background-color: #333;
