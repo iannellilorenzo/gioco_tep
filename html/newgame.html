@@ -22,10 +22,15 @@
     </footer>
 
     <script>
-        const myHeader = new Headers();
-        myHeaders.append("Authorization", "Basic NElFOlRpcm9uaQ==");
+        const myHeader = new Headers ();
+        myHeader.append("Authorization", "Basic NElFOlRpcm9uaQ==");
+        myHeader.append("Access-Control-Allow-Origin", "*");
 
-        //function getGameID() {
+        for (var pair of myHeader.entries()) {
+            console.log(pair[0]+ ': '+ pair[1]);
+        }
+
+        function getGameID() {
             var xhr = new XMLHttpRequest();
             xhr.withCredentials = true;
             xhr.onreadystatechange= function() {
@@ -38,9 +43,9 @@
             xhr.setRequestHeader("Authorization", "Basic NElFOlRpcm9uaQ==");
             xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
 
-            xhr.send();
+            xhr.send(); 
             
-        //}
+        }
     </script>
   
     <script src="../js/script.js"></script>
