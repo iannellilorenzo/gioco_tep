@@ -22,30 +22,37 @@
     </footer>
 
     <script>
-        const myHeader = new Headers ();
-        myHeader.append("Authorization", "Basic NElFOlRpcm9uaQ==");
-        myHeader.append("Access-Control-Allow-Origin", "*");
+        
 
-        for (var pair of myHeader.entries()) {
-            console.log(pair[0]+ ': '+ pair[1]);
-        }
+      function getGameID() {
+        fetch('https://classe5ID.altervista.org/games/partitaN/7', {
+          method: 'GET',
+          headers: {
+              'Authorization': 'Basic NElFOlRpcm9uaQ=='
+            }
+          })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Errore nella richiesta: ' + response.status);
+          }
+          return response.json();
+        })
+      .then(data => {
+          var players = [];
+          for (var i = 1; i <= 7; i++) {
+              if (data['PLAYER' + i] !== null) {
+                  players.push(data['PLAYER' + i]);
+              }
+          }
+          var playersString = players.join(', ');
 
-        function getGameID() {
-            var xhr = new XMLHttpRequest();
-            xhr.withCredentials = true;
-            xhr.onreadystatechange= function() {
-                if (this.status==200 && this.readyState === 4) {
-                    console.log(this.responseText);
-                }
-            };
-
-            xhr.open("POST", "http://classe5ID.alterivista.org/games/partita/milionario_Iannelli");
-            xhr.setRequestHeader("Authorization", "Basic NElFOlRpcm9uaQ==");
-            xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
-
-            xhr.send(); 
-            
-        }
+          // Esegui le operazioni desiderate con playersString
+          
+      })
+      .catch(error => {
+          console.error(error.message);
+      });
+    }
     </script>
   
     <script src="../js/script.js"></script>
