@@ -38,6 +38,61 @@
 
         xhr.send();
         
+
+        // function waitForPlayer() {
+            
+        //     alert("Waiting for another player to join...");
+
+            
+        //     var checkPlayerInterval = setInterval(function() {
+        //       var xhr = new XMLHttpRequest();
+        //       xhr.withCredentials = true;
+
+        //       xhr.addEventListener("readystatechange", function() {
+        //         if(this.readyState === 4) {
+        //           var response = jQuery.parseJSON(this.responseText);
+                  
+        //           if(response.data.players.length > 1) {
+                    
+        //             clearInterval(checkPlayerInterval);
+        //             alert("Another player has joined. The game will now start.");
+                    
+        //           }
+        //         }
+        //       });
+
+        //       xhr.open("GET", "https://classe5ID.altervista.org/games/partita/IANNELLI_milionario" + document.getElementById("gameid").innerText);
+        //       xhr.send();
+        //     }, 5000);
+
+            
+        //     var checkPlayerButton = document.createElement("button");
+        //     checkPlayerButton.innerText = "Check for another player";
+        //     checkPlayerButton.addEventListener("click", function() {
+              
+        //       var xhr = new XMLHttpRequest();
+        //       xhr.withCredentials = true;
+
+        //       xhr.addEventListener("readystatechange", function() {
+        //         if(this.readyState === 4) {
+        //           var response = jQuery.parseJSON(this.responseText);
+                  
+        //           if(response.data.players.length > 1) {
+                    
+        //             clearInterval(checkPlayerInterval);
+        //             alert("Another player has joined. The game will now start.");
+                    
+        //           }
+        //         }
+        //       });
+
+        //       xhr.open("GET", "/api/game/" + document.getElementById("gameid").innerText);
+        //       xhr.send();
+        //     });
+
+        //     document.body.appendChild(checkPlayerButton);
+        // }
+
     </script>
   
     <script src="../js/script.js"></script>
