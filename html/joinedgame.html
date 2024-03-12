@@ -13,8 +13,7 @@
     </header>
     <main class="container">
       <section>
-        <h2>Partita creata!</h2>
-        <h3 id="gameid"></h3>
+        <h2>Ti sei unito alla partita</h2>
       </section>
       <!-- da fare l'effettivo gioco -->
     </main>
@@ -23,21 +22,6 @@
     </footer>
 
     <script>
-        var xhr = new XMLHttpRequest();
-        xhr.withCredentials = true;
-
-        xhr.addEventListener("readystatechange", function() {
-            if(this.readyState === 4) {
-              document.getElementById("gameid").innerText = "ID della partita: " +
-              jQuery.parseJSON(this.responseText).data.id;
-            }
-        });
-
-        xhr.open("POST", "https://classe5ID.altervista.org/games/partita/IANNELLI_milionario");
-        xhr.setRequestHeader("Authorization", "Basic NElFOlRpcm9uaQ==");
-
-        xhr.send();
-        
     </script>
   
     <script src="../js/script.js"></script>

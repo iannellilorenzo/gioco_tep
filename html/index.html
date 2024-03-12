@@ -14,11 +14,42 @@
     <main>
       <form class="center">
         <button onclick="createGame()">Crea partita</button>
+        <hr>
+        <input type="text" id="username" placeholder="Nome">
+        <input type="text" id="gameid" placeholder="ID partita">
+        <button onclick="joinGame()">Unisciti a una partita</button>
       </form>
     </main>
     <footer>
       <p>© 2024 Chi vuol essere milionario! Tutti i diritti riservati.</p>
     </footer>
+
+    <script>
+      function createGame() {
+        window.open("../html/newgame.html", "_blank");
+      }
+
+      function joinGame() {
+        var xhr = new XMLHttpRequest();
+        xhr.withCredentials = true;
+
+        xhr.addEventListener("readystatechange", function() {
+          if(this.readyState === 4) {
+            //window.open("../html/joinedgame.html", "_blank");
+          }
+        });
+
+        gameID = document.getElementById("gameid").value;
+        username = document.getElementById("username").value;
+        console.log(gameID);
+        console.log(username);
+
+        xhr.open("POST", `https://classe5ID.altervista.org/games/join/${gameID}/${username}`);
+        xhr.setRequestHeader("Authorization", "Basic NElFOlRpcm9uaQ==");
+
+        xhr.send();
+      }
+    </script>
   
     <script src="../js/script.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
