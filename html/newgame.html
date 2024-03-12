@@ -15,6 +15,7 @@
       <section>
         <h2>Partita creata!</h2>
         <h3 id="gameid"></h3>
+        <button id="check" onclick="waitForPlayer()">Controlla giocatori</button>
       </section>
       <!-- da fare l'effettivo gioco -->
     </main>
@@ -23,75 +24,73 @@
     </footer>
 
     <script>
-        var xhr = new XMLHttpRequest();
-        xhr.withCredentials = true;
+      var xhr = new XMLHttpRequest();
+      xhr.withCredentials = true;
 
-        xhr.addEventListener("readystatechange", function() {
+      xhr.addEventListener("readystatechange", function() {
+          if(this.readyState === 4) {
+            document.getElementById("gameid").innerText = "ID della partita: " +
+            jQuery.parseJSON(this.responseText).data.id;
+            setTimeout(waitForPlayer, 1000);
+          }
+      });
+
+      xhr.open("POST", "https://classe5ID.altervista.org/games/partita/IANNELLI_milionario");
+      xhr.setRequestHeader("Authorization", "Basic NElFOlRpcm9uaQ==");
+
+      xhr.send();
+
+      
+      function waitForPlayer() {
+          
+        alert("Waiting for another player to join...");
+
+          
+        var checkPlayerInterval = setInterval(function() {
+          var xhr = new XMLHttpRequest();
+          xhr.withCredentials = true;
+
+          xhr.addEventListener("readystatechange", function() {
             if(this.readyState === 4) {
-              document.getElementById("gameid").innerText = "ID della partita: " +
-              jQuery.parseJSON(this.responseText).data.id;
-            }
-        });
-
-        xhr.open("POST", "https://classe5ID.altervista.org/games/partita/IANNELLI_milionario");
-        xhr.setRequestHeader("Authorization", "Basic NElFOlRpcm9uaQ==");
-
-        xhr.send();
-        
-
-        // function waitForPlayer() {
-            
-        //     alert("Waiting for another player to join...");
-
-            
-        //     var checkPlayerInterval = setInterval(function() {
-        //       var xhr = new XMLHttpRequest();
-        //       xhr.withCredentials = true;
-
-        //       xhr.addEventListener("readystatechange", function() {
-        //         if(this.readyState === 4) {
-        //           var response = jQuery.parseJSON(this.responseText);
-                  
-        //           if(response.data.players.length > 1) {
-                    
-        //             clearInterval(checkPlayerInterval);
-        //             alert("Another player has joined. The game will now start.");
-                    
-        //           }
-        //         }
-        //       });
-
-        //       xhr.open("GET", "https://classe5ID.altervista.org/games/partita/IANNELLI_milionario" + document.getElementById("gameid").innerText);
-        //       xhr.send();
-        //     }, 5000);
-
-            
-        //     var checkPlayerButton = document.createElement("button");
-        //     checkPlayerButton.innerText = "Check for another player";
-        //     checkPlayerButton.addEventListener("click", function() {
+              var response = jQuery.parseJSON(this.responseText);
               
-        //       var xhr = new XMLHttpRequest();
-        //       xhr.withCredentials = true;
+              if(response.data.players.length > 1) {
+                
+                clearInterval(checkPlayerInterval);
+                alert("Another player has joined. The game will now start.");
+                
+              }
+            }
+          });
 
-        //       xhr.addEventListener("readystatechange", function() {
-        //         if(this.readyState === 4) {
-        //           var response = jQuery.parseJSON(this.responseText);
-                  
-        //           if(response.data.players.length > 1) {
-                    
-        //             clearInterval(checkPlayerInterval);
-        //             alert("Another player has joined. The game will now start.");
-                    
-        //           }
-        //         }
-        //       });
+          xhr.open("GET", "https://classe5ID.altervista.org/games/partita/IANNELLI_milionario" + document.getElementById("gameid").innerText);
+          xhr.send();
+        }, 5000);
 
-        //       xhr.open("GET", "/api/game/" + document.getElementById("gameid").innerText);
-        //       xhr.send();
-        //     });
+        
+        var checkPlayerButton = document.getElementById("check");
+        checkPlayerButton.addEventListener("click", function() {
+          
+          var xhr = new XMLHttpRequest();
+          xhr.withCredentials = true;
 
-        //     document.body.appendChild(checkPlayerButton);
-        // }
+          xhr.addEventListener("readystatechange", function() {
+            if(this.readyState === 4) {
+              var response = jQuery.parseJSON(this.responseText);
+              
+              if(response.data.players.length > 1) {
+                
+                clearInterval(checkPlayerInterval);
+                alert("Another player has joined. The game will now start.");
+                
+              }
+            }
+          });
+
+          xhr.open("GET", "https://classe5ID.altervista.org/games/partita/" + document.getElementById("gameid").innerText);
+          xhr.send();
+        });
+      }
 
     </script>
   
