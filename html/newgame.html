@@ -23,47 +23,7 @@
 
     <script>
 
-      window.onload = function() {
-        var username = "4IE";
-        var pass = "Tironi";
-        var baseCredentials = btoa(username + ':' + pass);
-      }
-      
-      function getGameID() {
-        window.onload = function() {
-        var username = "4IE";
-        var pass = "Tironi";
-        var baseCredentials = btoa(username + ':' + pass);
-      }
-
-        fetch('https://classe5ID.altervista.org/games/partitaN/7', {
-          method: 'GET',
-          headers: {
-              'Authorization': 'Basic ' + baseCredentials
-            }
-          })
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Errore nella richiesta: ' + response.status);
-          }
-          return response.json();
-        })
-      .then(data => {
-          var players = [];
-          for (var i = 1; i <= 7; i++) {
-              if (data['PLAYER' + i] !== null) {
-                  players.push(data['PLAYER' + i]);
-              }
-          }
-          var playersString = players.join(', ');
-
-          // Esegui le operazioni desiderate con playersString
-          
-      })
-      .catch(error => {
-          console.error(error.message);
-      });
-    }
+        
     </script>
   
     <script src="../js/script.js"></script>
