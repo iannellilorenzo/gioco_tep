@@ -21,6 +21,7 @@
       </form>
       <hr>
       <button onclick="getAvailableGame()">Mostra partite disponibili</button>
+      <div id="displayGames"></div>
     </main>
     <footer>
       <p>© 2024 Chi vuol essere milionario! Tutti i diritti riservati.</p>
@@ -53,16 +54,40 @@
       }
 
       function getAvailableGame() {
+        var disp = document.getElementById("displayGames");
+        disp.innerText = "";
         var xhr = new XMLHttpRequest();
         xhr.withCredentials = true;
 
+        //var playersInGame = new Array;
+
         xhr.addEventListener("readystatechange", function() {
           if(this.readyState === 4) {
-            console.log(this.responseText);
+            let games = new Array;
+            games = jQuery.parseJSON(this.responseText).data;
+            games.forEach(game => {
+              if (game['PLAYER1'] === "IANNELLI_milionario") {
+                var playersInGame = [];
+                for(var i = 1; i < 8; i++) {
+                  if (game['PLAYER' + i] !== null) {
+                    playersInGame.push(game['PLAYER' + i]);
+                  }
+                }
+                
+                var playersInGamePrint = playersInGame.join(', ');
+                disp.innerText += `ID Partita: ${game.ID}; Giocatori all'interno: ${playersInGamePrint}\n`;
+              }
+            });
+
+            
+
+            //console.log(games);
+            console.log(games['ID']);
+            //disp.innerText = jQuery.parseJSON(this.responseText).data.data.id;
           }
         });
 
-        xhr.open("GET", "https://classe5ID.altervista.org/games/partita/milionario_Iannelli");
+        xhr.open("GET", "https://classe5ID.altervista.org/games/partita/IANNELLI_milionario");
         xhr.setRequestHeader("Authorization", "Basic NElFOlRpcm9uaQ==");
 
         xhr.send();
