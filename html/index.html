@@ -11,7 +11,7 @@
     <header class="head">
       <h1>Chi vuol essere milionario!</h1>
     </header>
-    <main>
+    <main style="text-align: center;">
       <form class="center">
         <button onclick="createGame()">Crea partita</button>
         <hr>
@@ -19,6 +19,8 @@
         <input type="text" id="gameid" placeholder="ID partita">
         <button onclick="joinGame()">Unisciti a una partita</button>
       </form>
+      <hr>
+      <button onclick="getAvailableGame()">Mostra partite disponibili</button>
     </main>
     <footer>
       <p>© 2024 Chi vuol essere milionario! Tutti i diritti riservati.</p>
@@ -45,6 +47,22 @@
         console.log(username);
 
         xhr.open("POST", `https://classe5ID.altervista.org/games/join/${gameID}/${username}`);
+        xhr.setRequestHeader("Authorization", "Basic NElFOlRpcm9uaQ==");
+
+        xhr.send();
+      }
+
+      function getAvailableGame() {
+        var xhr = new XMLHttpRequest();
+        xhr.withCredentials = true;
+
+        xhr.addEventListener("readystatechange", function() {
+          if(this.readyState === 4) {
+            console.log(this.responseText);
+          }
+        });
+
+        xhr.open("GET", "https://classe5ID.altervista.org/games/partita/milionario_Iannelli");
         xhr.setRequestHeader("Authorization", "Basic NElFOlRpcm9uaQ==");
 
         xhr.send();
