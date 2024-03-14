@@ -44,8 +44,11 @@
 
         gameID = document.getElementById("gameid").value;
         username = document.getElementById("username").value;
-        console.log(gameID);
-        console.log(username);
+
+        if (gameID === "" || username === "") {
+          alert("Inserisci un nome e un ID partita");
+          return;
+        }
 
         xhr.open("POST", `https://classe5ID.altervista.org/games/join/${gameID}/${username}`);
         xhr.setRequestHeader("Authorization", "Basic NElFOlRpcm9uaQ==");
@@ -58,8 +61,6 @@
         disp.innerText = "";
         var xhr = new XMLHttpRequest();
         xhr.withCredentials = true;
-
-        //var playersInGame = new Array;
 
         xhr.addEventListener("readystatechange", function() {
           if(this.readyState === 4) {
@@ -78,12 +79,6 @@
                 disp.innerText += `ID Partita: ${game.ID}; Giocatori all'interno: ${playersInGamePrint}\n`;
               }
             });
-
-            
-
-            //console.log(games);
-            console.log(games['ID']);
-            //disp.innerText = jQuery.parseJSON(this.responseText).data.data.id;
           }
         });
 
