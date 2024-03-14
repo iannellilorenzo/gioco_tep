@@ -29,8 +29,8 @@
 
       xhr.addEventListener("readystatechange", function() {
           if(this.readyState === 4) {
-            document.getElementById("gameid").innerText = "ID della partita: " +
-            jQuery.parseJSON(this.responseText).data.id;
+            const id = getGameID();
+            document.getElementById("gameid").innerText = "ID della partita: " + id;
             setTimeout(waitForPlayer, 1000);
           }
       });

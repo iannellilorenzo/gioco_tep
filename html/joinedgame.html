@@ -15,13 +15,30 @@
       <div style="text-align:center">
         <h2>Ti sei unito alla partita</h2>
       </div>
-      
+      <div id="gioco">
+
+      </div>
     </main>
     <footer>
       <p>© 2024 Chi vuol essere milionario! Tutti i diritti riservati.</p>
     </footer>
 
     <script>
+
+      var xhr = new XMLHttpRequest();
+      xhr.withCredentials = true;
+
+      xhr.addEventListener("readystatechange", function() {
+        if(this.readyState === 4) {
+          var moveList = jQuery.parseJSON(this.responseText);
+          console.log(moveList);
+        }
+      });
+
+      xhr.open("GET", `https://classe5ID.altervista.org/games/mosse/${gameId}`);
+      xhr.setRequestHeader("Authorization", "Basic NElFOlRpcm9uaQ==");
+
+      xhr.send();
     </script>
   
     <script src="../js/script.js"></script>
