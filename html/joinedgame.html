@@ -59,16 +59,14 @@
       var xhr = new XMLHttpRequest();
       xhr.withCredentials = true;
 
-      xhr.addEventListener("readystatechange", async function() {
+      xhr.addEventListener("readystatechange", function() {
         if(this.readyState === 4) {
-          const gameId = await getGameID();
-          // var moveList = jQuery.parseJSON(this.responseText);
-          // console.log(moveList);
-          xhr.open("GET", `https://classe5ID.altervista.org/games/mosse/${gameId}`);
-          xhr.setRequestHeader("Authorization", "Basic NElFOlRpcm9uaQ==");
-          xhr.send();
+          var moveList = jQuery.parseJSON(this.responseText);
+          console.log(moveList);
         }
       });
+      
+      
       xhr.open("GET", `https://classe5ID.altervista.org/games/mosse/${gameId}`);
       xhr.setRequestHeader("Authorization", "Basic NElFOlRpcm9uaQ==");
       xhr.send();
