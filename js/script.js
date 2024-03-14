@@ -25,10 +25,7 @@ async function getGameID() {
     };
 
     const result = await fetch("https://classe5ID.altervista.org/games/partita/IANNELLI_milionario", requestOptions);
-    console.log(result);
     const risultato = await result.json();
-    console.log(risultato);
-    const id = JSON.parse(risultato).data.id;
-    console.log(id);
+    const id = await risultato.data.id;
     return id;
 }
