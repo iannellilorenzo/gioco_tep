@@ -1,0 +1,482 @@
+[
+    {
+      "id": 1,
+      "domanda": "Qual è il più grande oceano del mondo per superficie?",
+      "risposta1": "Pacifico",
+      "risposta2": "Atlantico",
+      "risposta3": "Indiano",
+      "risposta4": "Artico"
+    },
+    {
+      "id": 2,
+      "domanda": "Chi ha dipinto \"La Gioconda\"?",
+      "risposta1": "Leonardo da Vinci",
+      "risposta2": "Michelangelo",
+      "risposta3": "Raphael",
+      "risposta4": "Donatello"
+    },
+    {
+      "id": 3,
+      "domanda": "Quale è il metallo più leggero?",
+      "risposta1": "Alluminio",
+      "risposta2": "Oro",
+      "risposta3": "Platino",
+      "risposta4": "Argento"
+    },
+    {
+      "id": 4,
+      "domanda": "In quale città si trova il Colosseo?",
+      "risposta1": "Roma",
+      "risposta2": "Atene",
+      "risposta3": "Istanbul",
+      "risposta4": "Parigi"
+    },
+    {
+      "id": 5,
+      "domanda": "Chi ha scritto \"Il piccolo principe\"?",
+      "risposta1": "Antoine de Saint-Exupéry",
+      "risposta2": "Jules Verne",
+      "risposta3": "Victor Hugo",
+      "risposta4": "Marcel Proust"
+    },
+    {
+      "id": 6,
+      "domanda": "Qual è il più grande deserto del mondo per estensione?",
+      "risposta1": "Sahara",
+      "risposta2": "Gobi",
+      "risposta3": "Kalahari",
+      "risposta4": "Antartide"
+    },
+    {
+      "id": 7,
+      "domanda": "Quale è il simbolo chimico del calcio?",
+      "risposta1": "Ca",
+      "risposta2": "Co",
+      "risposta3": "Cu",
+      "risposta4": "Fe"
+    },
+    {
+      "id": 8,
+      "domanda": "Chi è stato il primo uomo a camminare sulla Luna?",
+      "risposta1": "Neil Armstrong",
+      "risposta2": "Buzz Aldrin",
+      "risposta3": "Yuri Gagarin",
+      "risposta4": "Alan Shepard"
+    },
+    {
+      "id": 9,
+      "domanda": "Qual è il più grande lago d'Europa per superficie?",
+      "risposta1": "Lago Ladoga",
+      "risposta2": "Lago di Garda",
+      "risposta3": "Lago di Ginevra",
+      "risposta4": "Lago di Costanza"
+    },
+    {
+      "id": 10,
+      "domanda": "Chi ha scritto \"Anna Karenina\"?",
+      "risposta1": "Leo Tolstoj",
+      "risposta2": "Fëdor Dostoevskij",
+      "risposta3": "Anton Čechov",
+      "risposta4": "Ivan Turgenev"
+    },
+    {
+      "id": 11,
+      "domanda": "In quale paese si trova il monte Kilimangiaro?",
+      "risposta1": "Tanzania",
+      "risposta2": "Kenya",
+      "risposta3": "Uganda",
+      "risposta4": "Etiopia"
+    },
+    {
+      "id": 12,
+      "domanda": "Qual è il compositore del celebre brano \"Le Quattro Stagioni\"?",
+      "risposta1": "Antonio Vivaldi",
+      "risposta2": "Johann Sebastian Bach",
+      "risposta3": "Ludwig van Beethoven",
+      "risposta4": "Wolfgang Amadeus Mozart"
+    },
+    {
+      "id": 13,
+      "domanda": "Chi ha scritto \"Il Gattopardo\"?",
+      "risposta1": "Giuseppe Tomasi di Lampedusa",
+      "risposta2": "Italo Calvino",
+      "risposta3": "Luigi Pirandello",
+      "risposta4": "Umberto Eco"
+    },
+    {
+      "id": 14,
+      "domanda": "Quale è il più grande fiume d'Europa per lunghezza?",
+      "risposta1": "Volga",
+      "risposta2": "Danubio",
+      "risposta3": "Po",
+      "risposta4": "Reno"
+    },
+    {
+      "id": 15,
+      "domanda": "Chi è l'autore de \"Il signore degli anelli\"?",
+      "risposta1": "J.R.R. Tolkien",
+      "risposta2": "C.S. Lewis",
+      "risposta3": "George R.R. Martin",
+      "risposta4": "J.K. Rowling"
+    },
+    {
+      "id": 16,
+      "domanda": "Qual è il simbolo chimico dell'ossigeno?",
+      "risposta1": "O",
+      "risposta2": "Os",
+      "risposta3": "Ox",
+      "risposta4": "Om"
+    },
+    {
+      "id": 17,
+      "domanda": "Chi ha scritto \"Il vecchio e il mare\"?",
+      "risposta1": "Ernest Hemingway",
+      "risposta2": "F. Scott Fitzgerald",
+      "risposta3": "John Steinbeck",
+      "risposta4": "William Faulkner"
+    },
+    {
+      "id": 18,
+      "domanda": "Quale è il più grande lago d'America per superficie?",
+      "risposta1": "Lago Superiore",
+      "risposta2": "Lago Michigan",
+      "risposta3": "Lago Huron",
+      "risposta4": "Lago Superiore"
+    },
+    {
+      "id": 19,
+      "domanda": "Chi ha dipinto \"La notte stellata\"?",
+      "risposta1": "Vincent van Gogh",
+      "risposta2": "Pablo Picasso",
+      "risposta3": "Claude Monet",
+      "risposta4": "Salvador Dalí"
+    },
+    {
+      "id": 20,
+      "domanda": "In quale paese si trova il Taj Mahal?",
+      "risposta1": "India",
+      "risposta2": "Nepal",
+      "risposta3": "Bangladesh",
+      "risposta4": "Pakistan"
+    },
+    {
+      "id": 21,
+      "domanda": "Chi ha scritto \"Moby Dick\"?",
+      "risposta1": "Herman Melville",
+      "risposta2": "Mark Twain",
+      "risposta3": "Nathaniel Hawthorne",
+      "risposta4": "Edgar Allan Poe"
+    },
+    {
+      "id": 22,
+      "domanda": "Qual è il più grande parco nazionale del mondo?",
+      "risposta1": "Parco Nazionale di Yellowstone",
+      "risposta2": "Parco Nazionale di Yosemite",
+      "risposta3": "Parco Nazionale di Grand Canyon",
+      "risposta4": "Parco Nazionale di Denali"
+    },
+    {
+      "id": 23,
+      "domanda": "Quale è il più grande lago d'Africa per superficie?",
+      "risposta1": "Lago Vittoria",
+      "risposta2": "Lago Tanganica",
+      "risposta3": "Lago Malawi",
+      "risposta4": "Lago Tana"
+    },
+    {
+      "id": 24,
+      "domanda": "Chi è stato il primo presidente degli Stati Uniti?",
+      "risposta1": "George Washington",
+      "risposta2": "Thomas Jefferson",
+      "risposta3": "John Adams",
+      "risposta4": "Abraham Lincoln"
+    },
+    {
+      "id": 25,
+      "domanda": "In quale città si trova la statua di \"Cristo Redentore\"?",
+      "risposta1": "Rio de Janeiro",
+      "risposta2": "Buenos Aires",
+      "risposta3": "Città del Messico",
+      "risposta4": "Bogotà"
+    },
+    {
+      "id": 26,
+      "domanda": "Quale è il più grande mammifero terrestre?",
+      "risposta1": "Elefante africano",
+      "risposta2": "Ippopotamo",
+      "risposta3": "Giraffa",
+      "risposta4": "Elefante asiatico"
+    },
+    {
+      "id": 27,
+      "domanda": "Chi ha scritto \"Il cacciatore di aquiloni\"?",
+      "risposta1": "Khaled Hosseini",
+      "risposta2": "Haruki Murakami",
+      "risposta3": "J.D. Salinger",
+      "risposta4": "Gabriel García Márquez"
+    },
+    {
+      "id": 28,
+      "domanda": "Qual è il più grande parco nazionale d'Africa?",
+      "risposta1": "Parco Nazionale di Serengeti",
+      "risposta2": "Parco Nazionale di Kruger",
+      "risposta3": "Parco Nazionale del Masai Mara",
+      "risposta4": "Parco Nazionale del Kilimangiaro"
+    },
+    {
+      "id": 29,
+      "domanda": "Quale è il simbolo chimico del ferro?",
+      "risposta1": "Fe",
+      "risposta2": "Fr",
+      "risposta3": "Fi",
+      "risposta4": "Fo"
+    },
+    {
+      "id": 30,
+      "domanda": "Chi è l'autore del libro \"1984\"?",
+      "risposta1": "George Orwell",
+      "risposta2": "Aldous Huxley",
+      "risposta3": "Ray Bradbury",
+      "risposta4": "J.R.R. Tolkien"
+    },
+    {
+      "id": 31,
+      "domanda": "Chi ha scritto \"Orgoglio e Pregiudizio\"?",
+      "risposta1": "Jane Austen",
+      "risposta2": "Emily Brontë",
+      "risposta3": "Charlotte Brontë",
+      "risposta4": "Virginia Woolf"
+    },
+    {
+      "id": 32,
+      "domanda": "Quale è il più grande fiume d'Asia per lunghezza?",
+      "risposta1": "Fiume Yangtze",
+      "risposta2": "Fiume Giallo",
+      "risposta3": "Fiume Congo",
+      "risposta4": "Fiume Nilo"
+    },
+    {
+      "id": 33,
+      "domanda": "Qual è il compositore della \"Sinfonia del Nuovo Mondo\"?",
+      "risposta1": "Antonín Dvořák",
+      "risposta2": "Ludwig van Beethoven",
+      "risposta3": "Johannes Brahms",
+      "risposta4": "Pyotr Ilyich Tchaikovsky"
+    },
+    {
+      "id": 34,
+      "domanda": "In quale città si trova il Museo del Prado?",
+      "risposta1": "Madrid",
+      "risposta2": "Barcellona",
+      "risposta3": "Valencia",
+      "risposta4": "Siviglia"
+    },
+    {
+      "id": 35,
+      "domanda": "Chi ha scritto \"La Divina Commedia\"?",
+      "risposta1": "Dante Alighieri",
+      "risposta2": "Giovanni Boccaccio",
+      "risposta3": "Francesco Petrarca",
+      "risposta4": "Niccolò Machiavelli"
+    },
+    {
+      "id": 36,
+      "domanda": "Quale è il simbolo chimico dell'idrogeno?",
+      "risposta1": "H",
+      "risposta2": "I",
+      "risposta3": "Hy",
+      "risposta4": "He"
+    },
+    {
+      "id": 37,
+      "domanda": "Chi è stato il primo imperatore romano?",
+      "risposta1": "Augusto",
+      "risposta2": "Giulio Cesare",
+      "risposta3": "Nerone",
+      "risposta4": "Tiberio"
+    },
+    {
+      "id": 38,
+      "domanda": "Qual è il più grande oceano del mondo per volume d'acqua?",
+      "risposta1": "Oceano Pacifico",
+      "risposta2": "Oceano Atlantico",
+      "risposta3": "Oceano Indiano",
+      "risposta4": "Oceano Artico"
+    },
+    {
+      "id": 39,
+      "domanda": "Chi ha scritto \"Il conte di Montecristo\"?",
+      "risposta1": "Alexandre Dumas",
+      "risposta2": "Victor Hugo",
+      "risposta3": "Gustave Flaubert",
+      "risposta4": "Émile Zola"
+    },
+    {
+      "id": 40,
+      "domanda": "In quale paese si trova il monte Everest?",
+      "risposta1": "Nepal e Cina",
+      "risposta2": "India e Nepal",
+      "risposta3": "India e Cina",
+      "risposta4": "Bhutan e Nepal"
+    },
+    {
+      "id": 41,
+      "domanda": "Quale è il più grande mammifero marino?",
+      "risposta1": "Balenottera azzurra",
+      "risposta2": "Orca",
+      "risposta3": "Megattera",
+      "risposta4": "Narvalo"
+    },
+    {
+      "id": 42,
+      "domanda": "Chi ha composto la \"Nona Sinfonia\"?",
+      "risposta1": "Ludwig van Beethoven",
+      "risposta2": "Wolfgang Amadeus Mozart",
+      "risposta3": "Franz Schubert",
+      "risposta4": "Johann Sebastian Bach"
+    },
+    {
+      "id": 43,
+      "domanda": "Qual è il metallo più prezioso al mondo?",
+      "risposta1": "Oro",
+      "risposta2": "Platino",
+      "risposta3": "Argento",
+      "risposta4": "Palladio"
+    },
+    {
+      "id": 44,
+      "domanda": "In quale città si trova la Torre Eiffel?",
+      "risposta1": "Parigi",
+      "risposta2": "Roma",
+      "risposta3": "Londra",
+      "risposta4": "Berlino"
+    },
+    {
+      "id": 45,
+      "domanda": "Chi è stato il primo uomo a raggiungere il Polo Sud?",
+      "risposta1": "Roald Amundsen",
+      "risposta2": "Robert Falcon Scott",
+      "risposta3": "Ernest Shackleton",
+      "risposta4": "Richard Byrd"
+    },
+    {
+      "id": 46,
+      "domanda": "Qual è il compositore della \"Sinfonia del Nuovo Mondo\"?",
+      "risposta1": "Antonín Dvořák",
+      "risposta2": "Ludwig van Beethoven",
+      "risposta3": "Johannes Brahms",
+      "risposta4": "Pyotr Ilyich Tchaikovsky"
+    },
+    {
+      "id": 47,
+      "domanda": "In quale città si trova il Museo del Prado?",
+      "risposta1": "Madrid",
+      "risposta2": "Barcellona",
+      "risposta3": "Valencia",
+      "risposta4": "Siviglia"
+    },
+    {
+      "id": 48,
+      "domanda": "Chi ha scritto \"La Divina Commedia\"?",
+      "risposta1": "Dante Alighieri",
+      "risposta2": "Giovanni Boccaccio",
+      "risposta3": "Francesco Petrarca",
+      "risposta4": "Niccolò Machiavelli"
+    },
+    {
+      "id": 49,
+      "domanda": "Quale è il simbolo chimico dell'idrogeno?",
+      "risposta1": "H",
+      "risposta2": "I",
+      "risposta3": "Hy",
+      "risposta4": "He"
+    },
+    {
+      "id": 50,
+      "domanda": "Chi è stato il primo imperatore romano?",
+      "risposta1": "Augusto",
+      "risposta2": "Giulio Cesare",
+      "risposta3": "Nerone",
+      "risposta4": "Tiberio"
+    },
+    {
+      "id": 51,
+      "domanda": "Quale è il più grande oceano del mondo per volume d'acqua?",
+      "risposta1": "Oceano Pacifico",
+      "risposta2": "Oceano Atlantico",
+      "risposta3": "Oceano Indiano",
+      "risposta4": "Oceano Artico"
+    },
+    {
+      "id": 52,
+      "domanda": "Chi ha scritto \"Il conte di Montecristo\"?",
+      "risposta1": "Alexandre Dumas",
+      "risposta2": "Victor Hugo",
+      "risposta3": "Gustave Flaubert",
+      "risposta4": "Émile Zola"
+    },
+    {
+      "id": 53,
+      "domanda": "In quale paese si trova il monte Everest?",
+      "risposta1": "Nepal e Cina",
+      "risposta2": "India e Nepal",
+      "risposta3": "India e Cina",
+      "risposta4": "Bhutan e Nepal"
+    },
+    {
+      "id": 54,
+      "domanda": "Quale è il più grande mammifero marino?",
+      "risposta1": "Balenottera azzurra",
+      "risposta2": "Orca",
+      "risposta3": "Megattera",
+      "risposta4": "Narvalo"
+    },
+    {
+      "id": 55,
+      "domanda": "Chi ha composto la \"Nona Sinfonia\"?",
+      "risposta1": "Ludwig van Beethoven",
+      "risposta2": "Wolfgang Amadeus Mozart",
+      "risposta3": "Franz Schubert",
+      "risposta4": "Johann Sebastian Bach"
+    },
+    {
+      "id": 56,
+      "domanda": "Qual è il metallo più prezioso al mondo?",
+      "risposta1": "Oro",
+      "risposta2": "Platino",
+      "risposta3": "Argento",
+      "risposta4": "Palladio"
+    },
+    {
+      "id": 57,
+      "domanda": "In quale città si trova la Torre Eiffel?",
+      "risposta1": "Parigi",
+      "risposta2": "Roma",
+      "risposta3": "Londra",
+      "risposta4": "Berlino"
+    },
+    {
+      "id": 58,
+      "domanda": "Chi è stato il primo uomo a raggiungere il Polo Sud?",
+      "risposta1": "Roald Amundsen",
+      "risposta2": "Robert Falcon Scott",
+      "risposta3": "Ernest Shackleton",
+      "risposta4": "Richard Byrd"
+    },
+    {
+      "id": 59,
+      "domanda": "Qual è il più grande lago d'Europa per superficie?",
+      "risposta1": "Lago Ladoga",
+      "risposta2": "Lago di Garda",
+      "risposta3": "Lago di Ginevra",
+      "risposta4": "Lago di Costanza"
+    },
+    {
+      "id": 60,
+      "domanda": "Chi ha scritto \"Anna Karenina\"?",
+      "risposta1": "Leo Tolstoj",
+      "risposta2": "Fëdor Dostoevskij",
+      "risposta3": "Anton Čechov",
+      "risposta4": "Ivan Turgenev"
+    }
+  ]

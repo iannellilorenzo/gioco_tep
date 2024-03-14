@@ -51,6 +51,7 @@
         }
 
         xhr.open("POST", `https://classe5ID.altervista.org/games/join/${gameID}/${username}`);
+        window.open("../html/joinedgame.html", "_blank");
         xhr.setRequestHeader("Authorization", "Basic NElFOlRpcm9uaQ==");
 
         xhr.send();

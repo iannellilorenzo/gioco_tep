@@ -16,7 +16,21 @@
         <h2>Ti sei unito alla partita</h2>
       </div>
       <div id="gioco">
-
+        <div id="domanda">
+          <h3>Domanda</h3>
+          <p id="testoDomanda"></p>
+        </div>
+        <div id="risposte">
+          <h3>Risposte</h3>
+          <button id="risposta1" onclick="risposta(1)"></button>
+          <button id="risposta2" onclick="risposta(2)"></button>
+          <button id="risposta3" onclick="risposta(3)"></button>
+          <button id="risposta4" onclick="risposta(4)"></button>
+        </div>
+        <div id="risultato">
+          <h3 onclick="getQuestion()">Risultato</h3>
+          <p id="risultatoTesto"></p>
+        </div>
       </div>
     </main>
     <footer>
@@ -24,21 +38,75 @@
     </footer>
 
     <script>
-
+      /*
       var xhr = new XMLHttpRequest();
       xhr.withCredentials = true;
 
       xhr.addEventListener("readystatechange", function() {
         if(this.readyState === 4) {
+          (async () => {
+              const gameId = await getGameID();
+            })();
           var moveList = jQuery.parseJSON(this.responseText);
           console.log(moveList);
         }
       });
-
       xhr.open("GET", `https://classe5ID.altervista.org/games/mosse/${gameId}`);
       xhr.setRequestHeader("Authorization", "Basic NElFOlRpcm9uaQ==");
 
       xhr.send();
+      */
+      var xhr = new XMLHttpRequest();
+      xhr.withCredentials = true;
+
+      xhr.addEventListener("readystatechange", async function() {
+        if(this.readyState === 4) {
+          const gameId = await getGameID();
+          // var moveList = jQuery.parseJSON(this.responseText);
+          // console.log(moveList);
+          xhr.open("GET", `https://classe5ID.altervista.org/games/mosse/${gameId}`);
+          xhr.setRequestHeader("Authorization", "Basic NElFOlRpcm9uaQ==");
+          xhr.send();
+        }
+      });
+      xhr.open("GET", `https://classe5ID.altervista.org/games/mosse/${gameId}`);
+      xhr.setRequestHeader("Authorization", "Basic NElFOlRpcm9uaQ==");
+      xhr.send();
+
+
+
+      function rng(min, max) {
+        return Math.random() * (max - min) + min;
+      }
+
+      function getQuestion() {
+        const minQuestionID = rng(1, 45); // questions go from id to id + 15
+        const questionsAnswers = [];
+        const string = "../assets/domande_risposte.json";
+        const quest = JSON.parse(string);
+        console.log(quest);
+        /*
+        var xhr = new XMLHttpRequest();
+        xhr.withCredentials = true;
+
+        xhr.addEventListener("readystatechange", function() {
+          if(this.readyState === 4) {
+            var question = jQuery.parseJSON(this.responseText);
+            console.log(question);
+            document.getElementById("testoDomanda").innerText = question.data.text;
+            document.getElementById("risposta1").innerText = question.data.answers[0];
+            document.getElementById("risposta2").innerText = question.data.answers[1];
+            document.getElementById("risposta3").innerText = question.data.answers[2];
+            document.getElementById("risposta4").innerText = question.data.answers[3];
+          }
+        });
+
+        xhr.open("GET", `https://classe5ID.altervista.org/games/domanda/${gameId}`);
+        xhr.setRequestHeader("Authorization", "Basic NElFOlRpcm9uaQ==");
+
+        xhr.send();
+        */
+      }
     </script>
   
     <script src="../js/script.js"></script>
