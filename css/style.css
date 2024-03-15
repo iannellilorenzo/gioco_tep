@@ -44,3 +44,11 @@ a:hover {
 button {
     margin: 10px;
 }
+
+.domanda {
+    margin: 20px;
+    padding: 20px;
+    background-color: #ffcc00;
+    border-radius: 10px;
+    text-align: center;
+}

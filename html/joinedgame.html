@@ -16,21 +16,23 @@
         <h2>Ti sei unito alla partita</h2>
       </div>
       <div id="gioco">
-        <div id="domanda">
-          <h3>Domanda</h3>
-          <p id="testoDomanda"></p>
+        <div id="step1"> <!-- il gioco è gestito in step, dove ogni step corrisponde a una domanda, da -->
+          <div class="domanda">
+            <h4>Domanda:</h4>
+            <div id="testoDomanda">
+              <!-- qua viene scritto il testo della domanda grazie allo script -->
+            </div>
+          </div>
+          <div id="risposte">
+            <h3>Risposte</h3>
+            <!-- in ogni bottone viene scritto il testo della risposta grazie allo script -->
+            <button id="risposta1" onclick="risposta(1)"></button>
+            <button id="risposta2" onclick="risposta(2)"></button>
+            <button id="risposta3" onclick="risposta(3)"></button>
+            <button id="risposta4" onclick="risposta(4)"></button>
+          </div>
         </div>
-        <div id="risposte">
-          <h3>Risposte</h3>
-          <button id="risposta1" onclick="risposta(1)"></button>
-          <button id="risposta2" onclick="risposta(2)"></button>
-          <button id="risposta3" onclick="risposta(3)"></button>
-          <button id="risposta4" onclick="risposta(4)"></button>
-        </div>
-        <div id="risultato">
-          <h3 onclick="getQuestion()">Risultato</h3>
-          <p id="risultatoTesto"></p>
-        </div>
+        <!-- tramite appendChild() metto un altro div di id="stepN" in modo da generare le domande seguenti solo quando lo decido io -->
       </div>
     </main>
     <footer>
@@ -38,24 +40,7 @@
     </footer>
 
     <script>
-      /*
-      var xhr = new XMLHttpRequest();
-      xhr.withCredentials = true;
-
-      xhr.addEventListener("readystatechange", function() {
-        if(this.readyState === 4) {
-          (async () => {
-              const gameId = await getGameID();
-            })();
-          var moveList = jQuery.parseJSON(this.responseText);
-          console.log(moveList);
-        }
-      });
-      xhr.open("GET", `https://classe5ID.altervista.org/games/mosse/${gameId}`);
-      xhr.setRequestHeader("Authorization", "Basic NElFOlRpcm9uaQ==");
-
-      xhr.send();
-      */
+      var stepId = 0; // stepId è l'id della domanda, zero-based, da cui traggo anche le risposte
 
       window.onload = async function() {
         const gameId = await getGameID();
@@ -66,8 +51,6 @@
         xhr.addEventListener("readystatechange", function() {
           if (this.readyState === 4 && this.status === 200) {
             var moveList = JSON.parse(this.responseText);
-            //console.log(moveList);
-            //moveList.data.moves =;
           }
         });
 
@@ -90,10 +73,20 @@
         const quest = await response.json();
 
         const questionsInRange = quest.slice(minQuestionID - 1, maxQuestionID - 1);
-        console.log(questionsInRange);
+        document.getElementById("testoDomanda").innerText = questionsInRange[stepId].id + questionsInRange[stepId].domanda;
+        return questionsInRange;
+      }
+
+      async function getAnswers() {
+        const questAnsw = await getQuestion();
+        console.log(questAnsw);
+        const answIndex = `risposta${Math.floor(rng(0, 4))}`; // per randomizzare le risposte siccome nel json la prima è sempre quella giusta
+        console.log(questAnsw[stepId][answIndex]);
+        document.getElementById("risposta1").innerText = questAnsw[stepId][answIndex];
       }
 
       getQuestion();
+      getAnswers();
     </script>
   
     <script src="../js/script.js"></script>
