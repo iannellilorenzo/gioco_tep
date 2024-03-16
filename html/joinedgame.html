@@ -38,9 +38,10 @@
     <footer>
       <p>© 2024 Chi vuol essere milionario! Tutti i diritti riservati.</p>
     </footer>
-
+    <script src="../js/script.js"></script>
     <script>
       var stepId = 0; // stepId è l'id della domanda, zero-based, da cui traggo anche le risposte
+      
 
       window.onload = async function() {
         const gameId = await getGameID();
@@ -65,31 +66,53 @@
       }
 
       async function getQuestion() {
-        const minQuestionID = Math.floor(rng(1, 45)); // questions go from id to id + 15
+        const minQuestionID = Math.floor(rng(1, 45)); // le domande vanno da 'minQuestionID' a 'minQuestionID + 15
+        console.log(minQuestionID);
         const maxQuestionID = minQuestionID + 15;
+
+        const myHeaders = new Headers();
+        myHeaders.append("Authorization", "Basic NElFOlRpcm9uaQ==");
+
+        const requestOptions = {
+          method: "GET",
+          headers: myHeaders,
+          redirect: "follow"
+        };
+
+        const gameId = await getGameID();
+        const result = await fetch(`https://classe5ID.altervista.org/games/mossa/${gameId}/IANNELLI_milionario/`, requestOptions);
+        const risultato = await result.json();
+        risultato.data.play = minQuestionID;
+
         const path = "../assets/domande_risposte.json";
 
         const response = await fetch(path);
         const quest = await response.json();
 
         const questionsInRange = quest.slice(minQuestionID - 1, maxQuestionID - 1);
-        document.getElementById("testoDomanda").innerText = questionsInRange[stepId].id + questionsInRange[stepId].domanda;
+        document.getElementById("testoDomanda").innerText = questionsInRange[stepId].domanda;
         return questionsInRange;
       }
 
       async function getAnswers() {
+        let supportArray = []; // array di supporto per la randomizzazione delle domande
         const questAnsw = await getQuestion();
-        console.log(questAnsw);
-        const answIndex = `risposta${Math.floor(rng(0, 4))}`; // per randomizzare le risposte siccome nel json la prima è sempre quella giusta
-        console.log(questAnsw[stepId][answIndex]);
-        document.getElementById("risposta1").innerText = questAnsw[stepId][answIndex];
+        for (let i = 1; i <= 4; i++) {
+          let answIndex;
+          let randomNum;
+          do {
+            randomNum = Math.floor(rng(1, 5));
+            answIndex = `risposta${randomNum}`;
+          } while (supportArray.includes(randomNum));
+          supportArray.push(randomNum);
+          console.log(supportArray);
+          document.getElementById(`risposta${i}`).innerText = questAnsw[stepId][answIndex];
+        }
       }
 
-      getQuestion();
       getAnswers();
     </script>
   
-    <script src="../js/script.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
