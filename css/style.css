@@ -23,7 +23,8 @@ main {
 
 h1, h2 {
     color: #222;
-} 
+    font-size: 2em;
+}
 
 footer {
     background-color: #333;
@@ -43,6 +44,22 @@ a:hover {
 
 button {
     margin: 10px;
+    padding: 15px 32px;
+    background-color: #ffcc00;
+    border: none;
+    border-radius: 10px !important;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+    transition-duration: 0.4s;
+    width: 100%;
+}
+
+button:hover {
+    background-color: #e6b800;
+    color: white;
 }
 
 .domanda {
@@ -51,4 +68,17 @@ button {
     background-color: #ffcc00;
     border-radius: 10px;
     text-align: center;
+}
+
+/* Responsive design */
+@media (min-width: 600px) {
+    button {
+        width: auto;
+    }
+}
+
+@media (min-width: 600px) {
+    h1, h2 {
+        font-size: 1.5em;
+    }
 }
