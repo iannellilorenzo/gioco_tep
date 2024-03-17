@@ -64,16 +64,25 @@
     <script src="../js/script.js"></script>
     <script>
       var stepId = 0; // stepId è l'id della domanda, zero-based, da cui traggo anche le risposte
-      const minQuestionID = Math.floor(rng(1, 45)); // le domande vanno da 'minQuestionID' a 'minQuestionID + 15
+      var minQuestionID = Math.floor(rng(1, 46)); // le domande vanno da 'minQuestionID' a 'minQuestionID' + 15
       const maxQuestionID = minQuestionID + 15;
       const money = { "domanda0": 0, // array per dire quanto vale ogni domanda
         "domanda1": 500, "domanda2": 1000, "domanda3": 1500, "domanda4": 2000, "domanda5": 3000, 
         "domanda6": 5000, "domanda7": 7000, "domanda8": 10000, "domanda9": 15000, "domanda10": 20000,
         "domanda11": 30000, "domanda12": 70000, "domanda13": 150000, "domanda14": 300000, "domanda15": 1000000
       };  // array per dire quanto vale ogni domanda
+      var index = minQuestionID - 1;
 
       function rng(min, max) {
         return Math.random() * (max - min) + min;
+      }
+
+      let quest;
+
+      window.onload = async function() {
+        const path = "../assets/domande_risposte.json";
+        const response = await fetch(path);
+        quest = await response.json();
       }
 
       async function getQuestion() {
@@ -89,14 +98,10 @@
         const gameId = await getGameID();
         const result = await fetch(`https://classe5ID.altervista.org/games/mossa/${gameId}/IANNELLI_milionario/`, requestOptions);
         const risultato = await result.json();
-        risultato.data.play = minQuestionID;
-
-        const path = "../assets/domande_risposte.json";
-
-        const response = await fetch(path);
-        const quest = await response.json();
+        risultato.data.play = minQuestionID - 1;
 
         const questionsInRange = quest.slice(minQuestionID - 1, maxQuestionID - 1);
+        console.log(questionsInRange);
         document.getElementById("valoreDomanda").innerText = `Domanda ${stepId + 1} dal valore di €${money[`domanda${stepId + 1}`]}`; // stepId è zero-based, quindi aggiungo 1 per ottenere il valore corretto
         document.getElementById("testoDomanda").innerText = questionsInRange[stepId].domanda;
         return questionsInRange;
@@ -144,21 +149,20 @@
         answ.classList.add('blue-flash');
         const answText = answ.innerText;
         answ.innerText = "L'accendiamo...?";
-
-        const path = "../assets/domande_risposte.json";
-        const response = await fetch(path);
-        const quest = await response.json();
         
         const modal = document.getElementById('modal-message');
+        const currentIndex = index;
 
         setTimeout(async function() {
           answ.classList.remove('blue-flash');
           answ.innerText = answText;
-          if (quest[minQuestionID - 1].risposta1 === answText) {
+          console.log(currentIndex);
+          console.log(quest[currentIndex].risposta1, answText);
+          if (quest[currentIndex].risposta1 === answText) {
             for (let i = 0; i < buttons.length; i++) {
               buttons[i].classList.remove('no-click');
             }
-
+            index++;
             stepId++;
             modal.style.color = "green";
             modal.innerText = "Risposta corretta!";
