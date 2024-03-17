@@ -11,43 +11,34 @@
     <header class="head">
       <h1><a href="index.html">Chi vuol essere milionario!</a></h1>
     </header>
-    <div class="container">
-      <section>
-        <h2>Partita creata!</h2>
-        <h3 id="gameid"></h3>
-        <button id="check" onclick="waitForPlayer()">Controlla giocatori</button>
-      </section>
+    <div class="container cont">
+      <div class="center">
+        <h2 style="text-align:center; padding-top: 20px">Partita creata!</h2>
+        <div id="alert">
+          In attesa di un avversario...
+        </div>
+        <br>
+        <h4 id="gameid"></h4>
+        <button class="display-games" id="check" onclick="waitForPlayer()">Controlla giocatori</button>
+      </div>
       <!-- da fare l'effettivo gioco -->
     </div>
     <footer>
-      <p>© 2024 Chi vuol essere milionario! Tutti i diritti riservati.</p>
+      <div>© 2024 Chi vuol essere milionario! Tutti i diritti riservati.</div>
     </footer>
 
+    <script src="../js/script.js"></script>
     <script>
-      function foobar() {
-        var xhr = new XMLHttpRequest();
-        xhr.withCredentials = true;
+      window.onload = printGameID();
 
-        xhr.addEventListener("readystatechange", function() {
-            if(this.readyState === 4) {
-              (async () => {
-                const id = await getGameID();
-                document.getElementById("gameid").innerText = "ID della partita: " + id;
-              })();
-              setTimeout(waitForPlayer, 1000);
-            }
-        });
+      async function printGameID() {
+        const gameId = await getGameID();
 
-        xhr.open("POST", "https://classe5ID.altervista.org/games/partita/IANNELLI_milionario");
-        xhr.setRequestHeader("Authorization", "Basic NElFOlRpcm9uaQ==");
-
-        xhr.send();
+        document.getElementById("gameid").innerText = "ID della partita: " + gameId;
       }
-      
-      window.onload = foobar;
 
       function waitForPlayer() {
-        alert("In attesa di un avversario...");
+        document.getElementById('alert').style.display = 'block';
         var checkPlayerInterval = setInterval(function() {
           var xhr = new XMLHttpRequest();
           xhr.withCredentials = true;
@@ -83,7 +74,7 @@
               
               if(response.data.players.length > 1) {
                 clearInterval(checkPlayerInterval);
-                alert("Un avversario si è unito. La partita inizierà ora.");
+                document.getElementById('alert').style.display = 'none';
               }
             }
           });
@@ -95,7 +86,6 @@
 
     </script>
   
-    <script src="../js/script.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>

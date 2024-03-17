@@ -1,9 +1,14 @@
+html {
+    height: 100%;
+}
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     background-color: #e4d5c7;
     color: #186049;
+    height: 100%;
 }
 
 .head {
@@ -21,16 +26,34 @@ main {
     text-align: center;
 }
 
-h1, h2 {
-    color: #186049;
+h1 {
+    color: #e4d5c7;
     font-size: 2em;
+}
+
+h2 {
+    color: #186049;
+    font-size: 1.5em;
 }
 
 footer {
     background-color: #186049;
-    padding: 10px;
+    padding: 20px;
     text-align: center;
     color: #e4d5c7;
+    margin-top: auto;
+    position: absolute;
+    width: 100%;
+    height: 60px;
+    z-index: 1; /* Add this line */
+}
+
+.cont {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    position: relative;
+    padding-bottom: 100px;
 }
 
 a {
@@ -56,7 +79,7 @@ a:hover {
     color: #e4d5c7;
 }
 
-button {
+.answer {
     margin: 10px;
     padding: 15px 32px;
     background-color: #6ab29b;
@@ -71,18 +94,79 @@ button {
     width: 100%;
 }
 
+.create-game {
+    margin: 20px;
+    padding: 20px;
+    background-color: #186049 !important;
+    border-radius: 30px;
+    text-align: center;
+    color: #e4d5c7 !important;
+    border-color: #186049 !important;
+}
+
+input {
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    background-color: #e4d5c7;
+    color: #186049;
+}
+
+input:focus {
+    outline: none;
+    border: 2px solid #6ab29b;
+}
+
+.join-game {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    background-color: #186049;
+    color: #e4d5c7;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.join-game:hover {
+    background-color: #247158;
+}
+
 button:hover {
     background-color: #247158;
     color: #e4d5c7;
 }
 
-.domanda {
+.question {
     margin: 20px;
     padding: 20px;
     background-color: #e4d5c7;
     border-radius: 30px;
     text-align: center;
     color: #186049;
+}
+
+.display-games {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    background-color: #247158;
+    color: #e4d5c7;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    
+}
+
+.display-games:hover {
+    background-color: #186049;
+}
+
+#alert {
+    display: none;
+    text-align: center;
+    transition: all 0.3s ease;
 }
 
 /* Responsive design */
