@@ -42,11 +42,11 @@
             </div>
           </div>
         </div>
-        <div class="modal fade" id="correctAnswerModal" tabindex="-1" role="dialog" aria-labelledby="correctAnswerModalLabel" aria-hidden="true">
+        <div id="correctAnswerModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="correctAnswerModalLabel" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
               <div class="modal-body">
-                <h2 class="text-center">Risposta esatta!</h2>
+                <h2 id="modal-message" class="text-center"></h2>
               </div>
             </div>
           </div>
@@ -96,24 +96,33 @@
         return questionsInRange;
       }
 
-      $(document).ready(function() {
-        async function getAnswers() {
-          let supportArray = []; // array di supporto per la randomizzazione delle domande
-          const questAnsw = await getQuestion();
-          for (let i = 1; i <= 4; i++) {
-            let answIndex;
-            let randomNum;
-            do {
-              randomNum = Math.floor(rng(1, 5));
-              answIndex = `risposta${randomNum}`;
-            } while (supportArray.includes(randomNum));
-            supportArray.push(randomNum);
-            document.getElementById(`risposta${i}`).innerText = questAnsw[stepId][answIndex];
-          }
+      async function getAnswers() {
+        let supportArray = []; // array di supporto per la randomizzazione delle domande
+        const questAnsw = await getQuestion();
+        for (let i = 1; i <= 4; i++) {
+          let answIndex;
+          let randomNum;
+          do {
+            randomNum = Math.floor(rng(1, 5));
+            answIndex = `risposta${randomNum}`;
+          } while (supportArray.includes(randomNum));
+          supportArray.push(randomNum);
+          document.getElementById(`risposta${i}`).innerText = questAnsw[stepId][answIndex];
         }
+      }
 
+
+      $(document).ready(function() {
+        $('#correctAnswerModal').modal({show:false});
         getAnswers();
       });
+
+      function showHideModal() {
+        $('#correctAnswerModal').modal('show');
+        setTimeout(function() {
+          $('#correctAnswerModal').modal('hide');
+        }, 2000);
+      }
       
       async function answered(answerId) {
         // se la risposta è corretta, passo alla domanda successiva
@@ -121,14 +130,25 @@
         const response = await fetch(path);
         const quest = await response.json();
 
-        const doc = document.getElementById(`risposta${answerId}`).innerText;
+        const answ = document.getElementById(`risposta${answerId}`).innerText;
+        const modal = document.getElementById('modal-message');
 
-        if (quest[minQuestionID - 1].risposta1 === doc) {
+        if (quest[minQuestionID - 1].risposta1 === answ) {
           stepId++;
-          $('#correctAnswerModal').modal('show');
-          setTimeout(function() {
-            $('#correctAnswerModal').modal('hide');
-          }, 2000);
+          modal.innerText = "Risposta corretta!";
+          showHideModal();
+          nextStep();
+        } else {
+          modal.innerText = "Risposta sbagliata!";
+          showHideModal();
+        }
+      }
+
+      function nextStep() {
+        if (stepId < 15) {
+          getAnswers();
+        } else {
+          // gestione risposta giusta tramite tempo, lasciata ad una futura funzione
         }
       }
       
