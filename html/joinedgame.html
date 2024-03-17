@@ -18,7 +18,7 @@
       <div id="gioco">
         <div id="step1"> <!-- il gioco è gestito in step, dove ogni step corrisponde a una domanda, da -->
           <div class="question">
-            <h4>Domanda:</h4>
+            <h4 id="valoreDomanda"></h4>
             <div id="testoDomanda">
               <!-- qua viene scritto il testo della domanda grazie allo script -->
             </div>
@@ -66,6 +66,11 @@
       var stepId = 0; // stepId è l'id della domanda, zero-based, da cui traggo anche le risposte
       const minQuestionID = Math.floor(rng(1, 45)); // le domande vanno da 'minQuestionID' a 'minQuestionID + 15
       const maxQuestionID = minQuestionID + 15;
+      const money = { "domanda0": 0, // array per dire quanto vale ogni domanda
+        "domanda1": 500, "domanda2": 1000, "domanda3": 1500, "domanda4": 2000, "domanda5": 3000, 
+        "domanda6": 5000, "domanda7": 7000, "domanda8": 10000, "domanda9": 15000, "domanda10": 20000,
+        "domanda11": 30000, "domanda12": 70000, "domanda13": 150000, "domanda14": 300000, "domanda15": 1000000
+      };  // array per dire quanto vale ogni domanda
 
       function rng(min, max) {
         return Math.random() * (max - min) + min;
@@ -92,6 +97,7 @@
         const quest = await response.json();
 
         const questionsInRange = quest.slice(minQuestionID - 1, maxQuestionID - 1);
+        document.getElementById("valoreDomanda").innerText = `Domanda ${stepId + 1} dal valore di €${money[`domanda${stepId + 1}`]}`; // stepId è zero-based, quindi aggiungo 1 per ottenere il valore corretto
         document.getElementById("testoDomanda").innerText = questionsInRange[stepId].domanda;
         return questionsInRange;
       }
@@ -123,25 +129,58 @@
           $('#correctAnswerModal').modal('hide');
         }, 2000);
       }
+
+      function delay(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+      }
       
       async function answered(answerId) {
-        // se la risposta è corretta, passo alla domanda successiva
+        let buttons = document.getElementsByClassName('risposta');
+        for (let i = 0; i < buttons.length; i++) {
+          buttons[i].classList.add('no-click');
+        }
+
+        const answ = document.getElementById(`risposta${answerId}`);
+        answ.classList.add('blue-flash');
+        const answText = answ.innerText;
+        answ.innerText = "L'accendiamo...?";
+
         const path = "../assets/domande_risposte.json";
         const response = await fetch(path);
         const quest = await response.json();
-
-        const answ = document.getElementById(`risposta${answerId}`).innerText;
+        
         const modal = document.getElementById('modal-message');
 
-        if (quest[minQuestionID - 1].risposta1 === answ) {
-          stepId++;
-          modal.innerText = "Risposta corretta!";
-          showHideModal();
-          nextStep();
-        } else {
-          modal.innerText = "Risposta sbagliata!";
-          showHideModal();
-        }
+        setTimeout(async function() {
+          answ.classList.remove('blue-flash');
+          answ.innerText = answText;
+          if (quest[minQuestionID - 1].risposta1 === answText) {
+            for (let i = 0; i < buttons.length; i++) {
+              buttons[i].classList.remove('no-click');
+            }
+
+            stepId++;
+            modal.style.color = "green";
+            modal.innerText = "Risposta corretta!";
+            showHideModal();
+            nextStep();
+          } else {
+            modal.style.color = "red";
+            modal.innerText = "Risposta sbagliata!";
+            showHideModal();
+
+            await delay(2000);
+
+            let doc = document.getElementsByClassName('cont')[0];
+            doc.innerHTML = "";
+            let gameOver = document.createElement("h1");
+            gameOver.style.textAlign = "center";
+            gameOver.style.padding = "50px";
+            gameOver.style.color = "red";
+            gameOver.innerText = "Hai perso! La tua vincita è di €" + money[`domanda${stepId}`];
+            doc.appendChild(gameOver);
+          }
+        }, 2000);
       }
 
       function nextStep() {

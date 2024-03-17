@@ -169,6 +169,37 @@ button:hover {
     transition: all 0.3s ease;
 }
 
+@keyframes flash-background {
+    0%, 50%, 100% { background-color: transparent; }
+    25%, 75% { background-color: blue; }
+}
+
+@keyframes flash-color {
+    0%, 50%, 100% { color: initial; }
+    25%, 75% { color: white; }
+}
+
+@keyframes flash-border {
+    0%, 50%, 100% { border-color: initial; }
+    25%, 75% { border-color: blue; }
+}
+
+.blue-flash {
+    animation: flash-background 2s linear infinite, flash-color 2s linear infinite, flash-border 2s linear infinite;
+}
+
+.green {
+    background-color: green;
+}
+
+.red {
+    background-color: red;
+}
+
+.no-click {
+    pointer-events: none;
+}
+
 /* Responsive design */
 @media (min-width: 600px) {
     button {
