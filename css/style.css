@@ -200,6 +200,10 @@ button:hover {
     pointer-events: none;
 }
 
+.invisible {
+    display: none;
+}
+
 /* Responsive design */
 @media (min-width: 600px) {
     button {

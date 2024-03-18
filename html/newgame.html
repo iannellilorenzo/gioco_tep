@@ -12,7 +12,7 @@
       <h1><a href="index.html">Chi vuol essere milionario!</a></h1>
     </header>
     <div class="container cont">
-      <div class="center">
+      <div id="init" class="center">
         <h2 style="text-align:center; padding-top: 20px">Partita creata!</h2>
         <div id="alert">
           In attesa di un avversario...
@@ -21,7 +21,43 @@
         <h4 id="gameid"></h4>
         <button class="display-games" id="check" onclick="waitForPlayer()">Controlla giocatori</button>
       </div>
-      <!-- da fare l'effettivo gioco -->
+      <div id="gioco" class="invisible">
+        <div id="step1"> <!-- il gioco è gestito in step, dove ogni step corrisponde a una domanda, da -->
+          <div class="question">
+            <h4 id="valoreDomanda"></h4>
+            <div id="testoDomanda">
+              <!-- qua viene scritto il testo della domanda grazie allo script -->
+            </div>
+          </div>
+          <div id="risposte" class="d-flex flex-column align-items-center justify-content-center">
+            <div class="row justify-content-around mb-2">
+              <div class="col-sm-5 d-flex justify-content-center">
+                <button class="risposta btn btn-warning rounded-pill btn-lg fixed-size-button" id="risposta1" onclick="answered(1)">Answer 1</button>
+              </div>
+              <div class="col-sm-5 d-flex justify-content-center">
+                <button class="risposta btn btn-warning rounded-pill btn-lg fixed-size-button" id="risposta2" onclick="answered(2)">Answer 2</button>
+              </div>
+            </div>
+            <div class="row justify-content-around">
+              <div class="col-sm-5 d-flex justify-content-center">
+                <button class="risposta btn btn-warning rounded-pill btn-lg fixed-size-button" id="risposta3" onclick="answered(3)">Answer 3</button>
+              </div>
+              <div class="col-sm-5 d-flex justify-content-center">
+                <button class="risposta btn btn-warning rounded-pill btn-lg fixed-size-button" id="risposta4" onclick="answered(4)">Answer 4</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="correctAnswerModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="correctAnswerModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-body">
+                <h2 id="modal-message" class="text-center"></h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <footer>
       <div>© 2024 Chi vuol essere milionario! Tutti i diritti riservati.</div>
@@ -32,61 +68,203 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="../js/script.js"></script>
     <script>
-      window.onload = printGameID();
+      let gameId;
+
+      window.onload = async function() {
+        printGameID();
+
+        const path = "../assets/domande_risposte.json";
+        const response = await fetch(path);
+        quest = await response.json();
+      }
 
       async function printGameID() {
-        const gameId = await getGameID();
-
+        gameId = await getGameID();
         document.getElementById("gameid").innerText = "ID della partita: " + gameId;
       }
 
-      function waitForPlayer() {
-        document.getElementById('alert').style.display = 'block';
-        var checkPlayerInterval = setInterval(function() {
-          var xhr = new XMLHttpRequest();
-          xhr.withCredentials = true;
+      let json;
 
-          xhr.addEventListener("readystatechange", function() {
-            if(this.readyState === 4) {
-              var response = jQuery.parseJSON(this.responseText);
-              
-              if(response.data.players.length > 1) {
-                
-                clearInterval(checkPlayerInterval);
-                alert("Un avversario si è unito. La partita inizierà ora.");
-                
-              }
-            }
-          });
+      async function getJson() {
+        const myHeaders = new Headers();
+        myHeaders.append("Authorization", "Basic NElFOlRpcm9uaQ==");
 
-          xhr.open("GET", "https://classe5ID.altervista.org/games/partita/IANNELLI_milionario" +
-          document.getElementById("gameid").innerText);
-          xhr.send();
-        }, 5000);
+        const requestOptions = {
+          method: "GET",
+          headers: myHeaders,
+          redirect: "follow"
+        };
 
-        
-        var checkPlayerButton = document.getElementById("check");
-        checkPlayerButton.addEventListener("click", function() {
-          
-          var xhr = new XMLHttpRequest();
-          xhr.withCredentials = true;
-
-          xhr.addEventListener("readystatechange", function() {
-            if(this.readyState === 4) {
-              var response = jQuery.parseJSON(this.responseText);
-              
-              if(response.data.players.length > 1) {
-                clearInterval(checkPlayerInterval);
-                document.getElementById('alert').style.display = 'none';
-              }
-            }
-          });
-
-          xhr.open("GET", "https://classe5ID.altervista.org/games/partita/" + document.getElementById("gameid").innerText);
-          xhr.send();
-        });
+        const result = await fetch("https://classe5ID.altervista.org/games/partita/", requestOptions);
+        json = await result.json();
       }
 
+      getJson();
+
+      let toWait = true;
+
+      async function waitForPlayer() {
+        let index = 0;
+
+        while(index < json.data.length) {
+          if(json.data[index].ID == gameId) {
+            console.log("In attesa di un avversario...");
+            break;
+          }
+          index++;
+        }
+
+        while(true) {
+          if(json.data[index].ID != gameId) {
+            console.log("Giocatore trovato!");
+            break;
+          }
+          await delay(100);
+        }
+
+        document.getElementById("init").innerHTML = "";
+        getQuestion();
+      }
+
+
+      var stepId = 0; // stepId è l'id della domanda, zero-based, da cui traggo anche le risposte
+      var minQuestionID = Math.floor(rng(1, 46)); // le domande vanno da 'minQuestionID' a 'minQuestionID' + 15
+      const maxQuestionID = minQuestionID + 15;
+      const money = { "domanda0": "0", // array per dire quanto vale ogni domanda
+        "domanda1": "500", "domanda2": "1.000", "domanda3": "1.500", "domanda4": "2.000", "domanda5": "3.000", 
+        "domanda6": "5.000", "domanda7": "7.000", "domanda8": "10.000", "domanda9": "15.000", "domanda10": "20.000",
+        "domanda11": "30.000", "domanda12": "70.000", "domanda13": "150.000", "domanda14": "300.000", "domanda15": "1.000.000"
+      };  // array per dire quanto vale ogni domanda
+      var index = minQuestionID - 1;
+
+      function rng(min, max) {
+        return Math.random() * (max - min) + min;
+      }
+
+      let quest;
+
+      
+
+      async function getQuestion() {
+        const myHeaders = new Headers();
+        myHeaders.append("Authorization", "Basic NElFOlRpcm9uaQ==");
+
+        const requestOptions = {
+          method: "GET",
+          headers: myHeaders,
+          redirect: "follow"
+        };
+
+        const gameId = await getGameID();
+        const result = await fetch(`https://classe5ID.altervista.org/games/mossa/${gameId}/IANNELLI_milionario/`, requestOptions);
+        const risultato = await result.json();
+        risultato.data.play = minQuestionID - 1;
+
+        const questionsInRange = quest.slice(minQuestionID - 1, maxQuestionID - 1);
+        document.getElementById("valoreDomanda").innerText = `Domanda ${stepId + 1} dal valore di €${money[`domanda${stepId + 1}`]}`; // stepId è zero-based, quindi aggiungo 1 per ottenere il valore corretto
+        document.getElementById("testoDomanda").innerText = questionsInRange[stepId].domanda;
+        return questionsInRange;
+      }
+
+      async function getAnswers() {
+        let supportArray = []; // array di supporto per la randomizzazione delle domande
+        const questAnsw = await getQuestion();
+        for (let i = 1; i <= 4; i++) {
+          let answIndex;
+          let randomNum;
+          do {
+            randomNum = Math.floor(rng(1, 5));
+            answIndex = `risposta${randomNum}`;
+          } while (supportArray.includes(randomNum));
+          supportArray.push(randomNum);
+          document.getElementById(`risposta${i}`).innerText = questAnsw[stepId][answIndex];
+        }
+      }
+
+      $(document).ready(function() {
+        $('#correctAnswerModal').modal({show:false});
+        getAnswers();
+      });
+
+      function showHideModal() {
+        $('#correctAnswerModal').modal('show');
+        setTimeout(function() {
+          $('#correctAnswerModal').modal('hide');
+        }, 2000);
+      }
+
+      function delay(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+      }
+      
+      async function answered(answerId) {
+        let buttons = document.getElementsByClassName('risposta');
+        for (let i = 0; i < buttons.length; i++) {
+          buttons[i].classList.add('no-click');
+        }
+
+        const answ = document.getElementById(`risposta${answerId}`);
+        answ.classList.add('blue-flash');
+        const answText = answ.innerText;
+        answ.innerText = "L'accendiamo...?";
+        
+        const modal = document.getElementById('modal-message');
+        const currentIndex = index;
+
+        setTimeout(async function() {
+          answ.classList.remove('blue-flash');
+          answ.innerText = answText;
+          if (quest[currentIndex].risposta1 === answText) {
+            for (let i = 0; i < buttons.length; i++) {
+              buttons[i].classList.remove('no-click');
+            }
+            index++;
+            stepId++;
+            modal.style.color = "green";
+            modal.innerText = "Risposta corretta!";
+            showHideModal();
+            nextStep();
+          } else {
+            modal.style.color = "red";
+            modal.innerText = "Risposta sbagliata!";
+            showHideModal();
+
+            await delay(2000);
+
+            let doc = document.getElementsByClassName('cont')[0];
+            doc.innerHTML = "";
+            let gameOver = document.createElement("h1");
+            gameOver.style.textAlign = "center";
+            gameOver.style.padding = "50px";
+            gameOver.style.color = "red";
+            gameOver.innerText = "Hai perso! La tua vincita è di €" + money[`domanda${stepId}`];
+            doc.appendChild(gameOver);
+          }
+        }, 2000);
+      }
+
+      async function nextStep() {
+        if (stepId < 15) {
+          getAnswers();
+        } else {
+          await delay(2000);
+
+          let doc = document.getElementsByClassName('cont')[0];
+          doc.innerHTML = "";
+          let gameOver = document.createElement("h1");
+          gameOver.style.textAlign = "center";
+          gameOver.style.padding = "50px";
+          gameOver.style.color = "green";
+          gameOver.innerText = "Hai vinto! La tua vincita è di €" + money[`domanda${stepId}`];
+          doc.appendChild(gameOver);
+        }
+      }
+
+      function startGame() {
+        document.getElementById("init").innerHTML = "";
+        document.getElementById("gioco").classList.remove("invisible");
+        getQuestion();
+      }
     </script>
   
   </body>

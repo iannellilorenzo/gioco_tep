@@ -45,12 +45,12 @@
 
         xhr.addEventListener("readystatechange", function() {
           if(this.readyState === 4) {
-            //window.open("../html/joinedgame.html", "_blank");
+            window.open("../html/joinedgame.html", "_blank");
           }
         });
 
-        gameID = document.getElementById("gameid").value;
-        username = document.getElementById("username").value;
+        const gameID = document.getElementById("gameid").value;
+        const username = document.getElementById("username").value;
 
         if (gameID === "" || username === "") {
           alert("Inserisci un nome e un ID partita");
