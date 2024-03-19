@@ -102,26 +102,21 @@
       async function waitForPlayer() {
         getJson();
         let index = 0;
-        console.log(gameId);
         while(index < json.data.length) {
           if(json.data[index].ID == gameId) {
-            console.log("scope partita ridotto");
             break;
           }
           index++;
         }
 
         while(true) {
-          console.log(json.data[index].PLAYER2);
           if(json.data[index].PLAYER2 != null) {
-            console.log("Giocatore trovato!");
             break;
           }
           await delay(1000);
         }
 
-        document.getElementById("init").innerHTML = "";
-        getQuestion();
+        startGame();
       }
 
 
@@ -144,6 +139,7 @@
       
 
       async function getQuestion() {
+        console.log("ma qua ci arrivo?");
         const myHeaders = new Headers();
         myHeaders.append("Authorization", "Basic NElFOlRpcm9uaQ==");
 

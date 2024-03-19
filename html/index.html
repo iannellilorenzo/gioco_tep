@@ -60,34 +60,8 @@
         console.log("qua ci arrivo");
         const result = await fetch(`https://classe5ID.altervista.org/games/join/${gameID}/${username}`, requestOptions);
         await console.log(result);
-
-
-        /*
-        var xhr = new XMLHttpRequest();
-        xhr.withCredentials = true;
-
-        xhr.addEventListener("readystatechange", function() {
-          if(this.readyState === 4) {
-            window.open("../html/joinedgame.html", "_blank");
-          }
-        });
-
-        const gameID = document.getElementById("gameid").value;
-        console.log(gameID);
-        const username = document.getElementById("username").value;
-
-        if (gameID === "" || username === "") {
-          alert("Inserisci un nome e un ID partita");
-          return;
-        }
-
-        await xhr.open("POST", `https://classe5ID.altervista.org/games/join/${gameID}/${username}`);
-        await xhr.setRequestHeader("Authorization", "Basic NElFOlRpcm9uaQ==");
-
-        await xhr.send();
-
-        //window.open("../html/joinedgame.html", "_blank");
-        */
+        
+        window.open("../html/joinedgame.html", "_blank");
       }
 
       function getAvailableGame() {
