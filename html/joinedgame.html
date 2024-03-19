@@ -64,13 +64,14 @@
     <script src="../js/script.js"></script>
     <script>
       var stepId = 0; // stepId è l'id della domanda, zero-based, da cui traggo anche le risposte
+      var minQuestionID = Math.floor(rng(1, 46)); // le domande vanno da 'minQuestionID' a 'minQuestionID' + 15
+      const maxQuestionID = minQuestionID + 15;
       const money = { "domanda0": "0", // array per dire quanto vale ogni domanda
         "domanda1": "500", "domanda2": "1.000", "domanda3": "1.500", "domanda4": "2.000", "domanda5": "3.000", 
         "domanda6": "5.000", "domanda7": "7.000", "domanda8": "10.000", "domanda9": "15.000", "domanda10": "20.000",
         "domanda11": "30.000", "domanda12": "70.000", "domanda13": "150.000", "domanda14": "300.000", "domanda15": "1.000.000"
       };  // array per dire quanto vale ogni domanda
-      let minQuestionID;
-      var index;
+      var index = minQuestionID - 1;
 
       function rng(min, max) {
         return Math.random() * (max - min) + min;
@@ -93,13 +94,11 @@
           headers: myHeaders,
           redirect: "follow"
         };
-
+// sta roba la deve fare la newgame, perché è quella che ha acesso dopo, ovvero solo dopo che premo il bottone
         const gameId = await getGameID();
-        const result = await fetch(`https://classe5ID.altervista.org/games/mossa/${gameId}`, requestOptions);
+        const result = await fetch(`https://classe5ID.altervista.org/games/mossa/${gameId}/IANNELLI_milionario/`, requestOptions);
         const risultato = await result.json();
-        console.log(risultato);
-        const minQuestionID = risultato.data.play.MOSSA;
-        console.log(minQuestionID);
+        risultato.data.play = minQuestionID - 1;
 
         const questionsInRange = quest.slice(minQuestionID - 1, maxQuestionID - 1);
         document.getElementById("valoreDomanda").innerText = `Domanda ${stepId + 1} dal valore di €${money[`domanda${stepId + 1}`]}`; // stepId è zero-based, quindi aggiungo 1 per ottenere il valore corretto
