@@ -18,7 +18,9 @@
           In attesa di un avversario...
         </div>
         <br>
-        <h4 id="gameid"></h4>
+        <h4  style="display: inline;" id="gameIdText">ID della partita: <h4 style="display: inline;" id="gameid"></h4></h4>
+        <br>
+        <br>
         <button class="display-games" id="check" onclick="waitForPlayer()">Controlla giocatori</button>
       </div>
       <div id="gioco" class="invisible">
@@ -69,6 +71,7 @@
     <script src="../js/script.js"></script>
     <script>
       let gameId;
+      let quest;
 
       window.onload = async function() {
         printGameID();
@@ -80,7 +83,8 @@
 
       async function printGameID() {
         gameId = await getGameID();
-        document.getElementById("gameid").innerText = "ID della partita: " + gameId;
+        console.log(gameId);
+        document.getElementById("gameid").innerText = gameId;
       }
 
       let json;
@@ -100,7 +104,7 @@
       }
 
       async function waitForPlayer() {
-        getJson();
+        await getJson();
         let index = 0;
         while(index < json.data.length) {
           if(json.data[index].ID == gameId) {
@@ -119,7 +123,6 @@
         startGame();
       }
 
-
       var stepId = 0; // stepId è l'id della domanda, zero-based, da cui traggo anche le risposte
       var minQuestionID = Math.floor(rng(1, 46)); // le domande vanno da 'minQuestionID' a 'minQuestionID' + 15
       const maxQuestionID = minQuestionID + 15;
@@ -134,25 +137,22 @@
         return Math.random() * (max - min) + min;
       }
 
-      let quest;
-
-      
+      let id;
 
       async function getQuestion() {
-        console.log("ma qua ci arrivo?");
+        
         const myHeaders = new Headers();
         myHeaders.append("Authorization", "Basic NElFOlRpcm9uaQ==");
 
         const requestOptions = {
-          method: "GET",
+          method: "POST",
           headers: myHeaders,
           redirect: "follow"
         };
 
-        const gameId = await getGameID();
-        const result = await fetch(`https://classe5ID.altervista.org/games/mossa/${gameId}/IANNELLI_milionario/`, requestOptions);
-        const risultato = await result.json();
-        risultato.data.play = minQuestionID - 1;
+        const result = await fetch(`https://classe5ID.altervista.org/games/mossa/${id}/IANNELLI_milionario/${minQuestionID - 1}`, requestOptions);
+        const risultato = await result.text();
+        console.log(risultato);
 
         const questionsInRange = quest.slice(minQuestionID - 1, maxQuestionID - 1);
         document.getElementById("valoreDomanda").innerText = `Domanda ${stepId + 1} dal valore di €${money[`domanda${stepId + 1}`]}`; // stepId è zero-based, quindi aggiungo 1 per ottenere il valore corretto
@@ -255,6 +255,7 @@
       }
 
       function startGame() {
+        id = document.getElementById("gameid").innerText;
         document.getElementById("init").innerHTML = "";
         document.getElementById("gioco").classList.remove("invisible");
         getQuestion();
