@@ -12,7 +12,7 @@
       <h1>Chi vuol essere milionario!</h1>
     </header>
     <div class="container cont">
-      <form class="center">
+      <form class="center" onsubmit="return false">
         <button class="create-game btn btn-warning rounded-pill btn-lg" onclick="createGame()">Crea partita</button>
         <br>
         <input type="text" id="username" placeholder="Nome">
@@ -20,10 +20,11 @@
         <button class="join-game" onclick="joinGame()">Unisciti a una partita</button>
       </form>
       <hr>
-      <div class="center">
-        <button class="center display-games" onclick="getAvailableGame()">Mostra partite disponibili</button>
-      </div>
-      
+      <form onsubmit="return false">
+        <div class="center">
+          <button type="button" class="center display-games" onclick="getAvailableGame()">Mostra partite disponibili</button>
+        </div>
+      </form>
       <div id="displayGames"></div>
     </div>
     <footer>
@@ -40,6 +41,28 @@
       }
 
       async function joinGame() {
+        const myHeaders = new Headers();
+        myHeaders.append("Authorization", "Basic NElFOlRpcm9uaQ==");
+
+        const requestOptions = {
+          method: "POST",
+          headers: myHeaders,
+          redirect: "follow"
+        };
+
+        const gameID = document.getElementById("gameid").value;
+        const username = document.getElementById("username").value;
+
+        if (gameID === "" || username === "") {
+          alert("Inserisci un nome e un ID partita");
+          return;
+        }
+        console.log("qua ci arrivo");
+        const result = await fetch(`https://classe5ID.altervista.org/games/join/${gameID}/${username}`, requestOptions);
+        await console.log(result);
+
+
+        /*
         var xhr = new XMLHttpRequest();
         xhr.withCredentials = true;
 
@@ -50,6 +73,7 @@
         });
 
         const gameID = document.getElementById("gameid").value;
+        console.log(gameID);
         const username = document.getElementById("username").value;
 
         if (gameID === "" || username === "") {
@@ -63,6 +87,7 @@
         await xhr.send();
 
         //window.open("../html/joinedgame.html", "_blank");
+        */
       }
 
       function getAvailableGame() {
@@ -91,7 +116,7 @@
           }
         });
 
-        xhr.open("GET", "https://classe5ID.altervista.org/games/partita/IANNELLI_milionario");
+        xhr.open("GET", "https://classe5ID.altervista.org/games/partita/");
         xhr.setRequestHeader("Authorization", "Basic NElFOlRpcm9uaQ==");
 
         xhr.send();

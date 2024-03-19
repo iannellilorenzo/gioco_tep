@@ -99,11 +99,8 @@
         json = await result.json();
       }
 
-      getJson();
-
-      let toWait = true;
-
       async function waitForPlayer() {
+        getJson();
         let index = 0;
         console.log(gameId);
         while(index < json.data.length) {
@@ -115,6 +112,7 @@
         }
 
         while(true) {
+          console.log(json.data[index].PLAYER2);
           if(json.data[index].PLAYER2 != null) {
             console.log("Giocatore trovato!");
             break;
