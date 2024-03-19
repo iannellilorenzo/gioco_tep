@@ -39,7 +39,7 @@
         window.open("../html/newgame.html", "_blank");
       }
 
-      function joinGame() {
+      async function joinGame() {
         var xhr = new XMLHttpRequest();
         xhr.withCredentials = true;
 
@@ -57,11 +57,12 @@
           return;
         }
 
-        xhr.open("POST", `https://classe5ID.altervista.org/games/join/${gameID}/${username}`);
-        window.open("../html/joinedgame.html", "_blank");
-        xhr.setRequestHeader("Authorization", "Basic NElFOlRpcm9uaQ==");
+        await xhr.open("POST", `https://classe5ID.altervista.org/games/join/${gameID}/${username}`);
+        await xhr.setRequestHeader("Authorization", "Basic NElFOlRpcm9uaQ==");
 
-        xhr.send();
+        await xhr.send();
+
+        //window.open("../html/joinedgame.html", "_blank");
       }
 
       function getAvailableGame() {

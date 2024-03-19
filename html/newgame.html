@@ -95,7 +95,7 @@
           redirect: "follow"
         };
 
-        const result = await fetch("https://classe5ID.altervista.org/games/partita/", requestOptions);
+        const result = await fetch("https://classe5ID.altervista.org/games/partitaN/3", requestOptions);
         json = await result.json();
       }
 
@@ -105,21 +105,21 @@
 
       async function waitForPlayer() {
         let index = 0;
-
+        console.log(gameId);
         while(index < json.data.length) {
           if(json.data[index].ID == gameId) {
-            console.log("In attesa di un avversario...");
+            console.log("scope partita ridotto");
             break;
           }
           index++;
         }
 
         while(true) {
-          if(json.data[index].ID != gameId) {
+          if(json.data[index].PLAYER2 != null) {
             console.log("Giocatore trovato!");
             break;
           }
-          await delay(100);
+          await delay(1000);
         }
 
         document.getElementById("init").innerHTML = "";
