@@ -94,11 +94,12 @@
           headers: myHeaders,
           redirect: "follow"
         };
-// sta roba la deve fare la newgame, perché è quella che ha acesso dopo, ovvero solo dopo che premo il bottone
-        const gameId = await getGameID();
-        const result = await fetch(`https://classe5ID.altervista.org/games/mossa/${gameId}/IANNELLI_milionario/`, requestOptions);
+// sta roba la deve fare la newgame, perché è quella che ha accesso dopo, ovvero solo dopo che premo il bottone
+        const gameId = await getGameID() - 1;
+        const result = await fetch(`https://classe5ID.altervista.org/games/mossa/${gameId}/`, requestOptions);
         const risultato = await result.json();
         risultato.data.play = minQuestionID - 1;
+        console.log(risultato);
 
         const questionsInRange = quest.slice(minQuestionID - 1, maxQuestionID - 1);
         document.getElementById("valoreDomanda").innerText = `Domanda ${stepId + 1} dal valore di €${money[`domanda${stepId + 1}`]}`; // stepId è zero-based, quindi aggiungo 1 per ottenere il valore corretto

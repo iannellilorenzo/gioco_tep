@@ -117,10 +117,10 @@
           if(json.data[index].PLAYER2 != null) {
             break;
           }
-          await delay(1000);
+          await delay(100);
         }
 
-        startGame();
+        await startGame();
       }
 
       var stepId = 0; // stepId è l'id della domanda, zero-based, da cui traggo anche le risposte
@@ -143,12 +143,11 @@
         myHeaders.append("Authorization", "Basic NElFOlRpcm9uaQ==");
 
         const requestOptions = {
-          method: "POST",
+          method: "GET",
           headers: myHeaders,
           redirect: "follow"
         };
-
-        const gameId = await getGameID();
+        console.log(gameId);
         const result = await fetch(`https://classe5ID.altervista.org/games/mossa/${gameId}`, requestOptions);
         const risultato = await result.text();
         console.log(risultato);
@@ -180,7 +179,6 @@
 
       $(document).ready(function() {
         $('#correctAnswerModal').modal({show:false});
-        getAnswers();
       });
 
       function showHideModal() {
