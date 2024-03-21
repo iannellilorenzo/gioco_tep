@@ -24,6 +24,9 @@
         <button class="display-games" id="check" onclick="waitForPlayer()">Controlla giocatori</button>
       </div>
       <div id="gioco" class="invisible">
+        <div style="text-align:center; padding-top: 5px; padding-bottom: 10px;">
+          <h2>La partita è cominciata</h2>
+        </div>
         <div id="step1"> <!-- il gioco è gestito in step, dove ogni step corrisponde a una domanda, da -->
           <div class="question">
             <h4 id="valoreDomanda"></h4>
@@ -75,7 +78,6 @@
 
       window.onload = async function() {
         printGameID();
-
         const path = "../assets/domande_risposte.json";
         const response = await fetch(path);
         quest = await response.json();
@@ -149,17 +151,17 @@
         };
         console.log(gameId);
         const result = await fetch(`https://classe5ID.altervista.org/games/mossa/${gameId}`, requestOptions);
-        const risultato = await result.text();
+        const risultato = await result.json();
         console.log(risultato);
-        /*
-        const minQuestionID = risultato.data.play.MOSSA;
-        console.log(minQuestionID);
 
-        const questionsInRange = quest.slice(minQuestionID - 1, maxQuestionID - 1);
+        let minQuestionID = risultato.data.play.MOSSA;
+        let maxQuestionID = minQuestionID + 15;
+        console.log(quest);
+        console.log(minQuestionID);
+        const questionsInRange = quest.slice(minQuestionID, maxQuestionID);
         document.getElementById("valoreDomanda").innerText = `Domanda ${stepId + 1} dal valore di €${money[`domanda${stepId + 1}`]}`; // stepId è zero-based, quindi aggiungo 1 per ottenere il valore corretto
         document.getElementById("testoDomanda").innerText = questionsInRange[stepId].domanda;
         return questionsInRange;
-        */
       }
 
       async function getAnswers() {
