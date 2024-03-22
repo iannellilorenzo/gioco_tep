@@ -24,7 +24,7 @@
         <button class="display-games" id="check" onclick="waitForPlayer()">Controlla giocatori</button>
       </div>
       <div id="gioco" class="invisible">
-        <div style="text-align:center; padding-top: 5px; padding-bottom: 10px;">
+        <div id="started" style="text-align:center; padding-top: 5px; padding-bottom: 10px;">
           <h2>La partita è cominciata</h2>
         </div>
         <div id="step1"> <!-- il gioco è gestito in step, dove ogni step corrisponde a una domanda, da -->
@@ -181,6 +181,7 @@
 
       $(document).ready(function() {
         $('#correctAnswerModal').modal({show:false});
+
       });
 
       function showHideModal() {
@@ -258,10 +259,16 @@
       }
 
       function startGame() {
+        $('#started').show();
+        setTimeout(function() {
+          $('#started').hide();
+          getAnswers();
+        }, 2000);
+
         id = document.getElementById("gameid").innerText;
         document.getElementById("init").innerHTML = "";
         document.getElementById("gioco").classList.remove("invisible");
-        getQuestion();
+        getAnswers();
       }
     </script>
   

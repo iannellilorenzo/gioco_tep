@@ -12,7 +12,7 @@
       <h1><a href="index.html">Chi vuol essere milionario!</a></h1>
     </header>
     <div class="container cont">
-      <div style="text-align:center; padding-top: 20px">
+      <div id="joined" style="text-align:center; padding-top: 20px">
         <h2>Ti sei unito alla partita</h2>
       </div>
       <div id="gioco">
@@ -79,13 +79,16 @@
 
       let quest;
 
-      window.onload = async function() {
-        const path = "../assets/domande_risposte.json";
-        const response = await fetch(path);
-        quest = await response.json();
-      }
+      let questPromise = new Promise((resolve, reject) => {
+        window.onload = async function() {
+          const path = "../assets/domande_risposte.json";
+          const response = await fetch(path);
+          quest = await response.json();
+          resolve(quest);
+        }
+      });
 
-      async function getQuestion() {
+      async function postQuestID() {
         const myHeaders = new Headers();
         myHeaders.append("Authorization", "Basic NElFOlRpcm9uaQ==");
 
@@ -94,12 +97,17 @@
           headers: myHeaders,
           redirect: "follow"
         };
-// sta roba la deve fare la newgame, perché è quella che ha accesso dopo, ovvero solo dopo che premo il bottone
+
         const gameId = await getGameID() - 1;
         const result = await fetch(`https://classe5ID.altervista.org/games/mossa/${gameId}/IANNELLI_milionario/${minQuestionID - 1}`, requestOptions);
         const risultato = await result.json();
         console.log(risultato);
+      }
 
+      async function getQuestion() {
+        if (stepId === 0) {
+          await postQuestID();
+        }
         const questionsInRange = quest.slice(minQuestionID - 1, maxQuestionID - 1);
         document.getElementById("valoreDomanda").innerText = `Domanda ${stepId + 1} dal valore di €${money[`domanda${stepId + 1}`]}`; // stepId è zero-based, quindi aggiungo 1 per ottenere il valore corretto
         document.getElementById("testoDomanda").innerText = questionsInRange[stepId].domanda;
@@ -109,7 +117,6 @@
       async function getAnswers() {
         let supportArray = []; // array di supporto per la randomizzazione delle domande
         const questAnsw = await getQuestion();
-        console.log("ma qua ci entro?");
         for (let i = 1; i <= 4; i++) {
           let answIndex;
           let randomNum;
@@ -123,9 +130,15 @@
       }
 
 
-      $(document).ready(function() {
+      $(document).ready(async function() {
         $('#correctAnswerModal').modal({show:false});
+        await questPromise;
         getAnswers();
+
+        $('#joined').show();
+        setTimeout(function() {
+          $('#joined').hide();
+        }, 2000);
       });
 
       function showHideModal() {
