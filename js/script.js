@@ -3,9 +3,9 @@ async function getGameID() {
     myHeaders.append("Authorization", "Basic NElFOlRpcm9uaQ==");
 
     const requestOptions = {
-    method: "POST",
-    headers: myHeaders,
-    redirect: "follow"
+        method: "POST",
+        headers: myHeaders,
+        redirect: "follow"
     };
 
     const result = await fetch("https://classe5ID.altervista.org/games/partita/IANNELLI_milionario", requestOptions);

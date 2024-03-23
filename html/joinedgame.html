@@ -53,6 +53,11 @@
         </div>
       </div>
     </div>
+    <div class="progress-container">
+      <div class="progress" style="height: 10px;">
+        <div id="progress-bar" class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+      </div>
+    </div>
     <br><br><br>
     <footer>
       <div>© 2024 Chi vuol essere milionario! Tutti i diritti riservati.</div>
@@ -215,6 +220,19 @@
         }
       }
       
+
+      let progress = 0;
+
+      // update the progress bar every 2 seconds
+      setInterval(function() {
+        progress += 2; // increase progress by 2% every 2 seconds
+        if (progress > 100) progress = 100; // cap progress at 100%
+
+        // update the progress bar
+        let progressBar = document.getElementById('progress-bar');
+        progressBar.style.width = progress + '%';
+        progressBar.setAttribute('aria-valuenow', progress);
+      }, 2000);
     </script>
   
     

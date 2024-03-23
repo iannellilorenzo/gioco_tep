@@ -116,14 +116,18 @@
         }
 
         while(true) {
+          await getJson();
+          console.log("ogni 5 secondi");
           if(json.data[index].PLAYER2 != null) {
             break;
           }
-          await delay(100);
+          await delay(5000); // da sistemare quando l'api tornerà a non laggare
         }
 
         await startGame();
       }
+
+      waitForPlayer();
 
       var stepId = 0; // stepId è l'id della domanda, zero-based, da cui traggo anche le risposte
       const money = { "domanda0": "0", // array per dire quanto vale ogni domanda
@@ -140,7 +144,6 @@
       let id;
 
       async function getQuestion() {
-        
         const myHeaders = new Headers();
         myHeaders.append("Authorization", "Basic NElFOlRpcm9uaQ==");
 
@@ -262,7 +265,6 @@
         $('#started').show();
         setTimeout(function() {
           $('#started').hide();
-          getAnswers();
         }, 2000);
 
         id = document.getElementById("gameid").innerText;

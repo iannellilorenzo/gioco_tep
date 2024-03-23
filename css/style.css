@@ -204,6 +204,14 @@ button:hover {
     display: none;
 }
 
+.progress-container {
+    position: fixed;
+    bottom: 50px;
+    width: 50%;
+    left: 25%;
+    z-index: 9999;
+}
+
 /* Responsive design */
 @media (min-width: 600px) {
     button {
