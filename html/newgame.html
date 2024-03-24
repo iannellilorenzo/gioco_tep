@@ -205,6 +205,7 @@
             const modal = document.getElementById('modal-message');
             modal.style.color = "red";
             modal.innerText = "Tempo scaduto!";
+            $('#bar-container').hide();
             showHideModal();
 
             setTimeout(gameOverMsg, 2000);
