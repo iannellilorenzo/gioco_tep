@@ -64,6 +64,11 @@
         </div>
       </div>
     </div>
+    <div id="bar-container" class="progress-container">
+      <div class="progress">
+        <div id="progress-bar" class="progress-bar" role="progressbar" style="width: 0%;" aria-valuemin="0" aria-valuemax="100"></div>
+      </div>
+    </div>
     <footer>
       <div>© 2024 Chi vuol essere milionario! Tutti i diritti riservati.</div>
     </footer>
@@ -117,11 +122,11 @@
 
         while(true) {
           await getJson();
-          console.log("ogni 5 secondi");
           if(json.data[index].PLAYER2 != null) {
+            console.log("Player 2 joined");
             break;
           }
-          await delay(5000); // da sistemare quando l'api tornerà a non laggare
+          await delay(100);
         }
 
         await startGame();
@@ -157,10 +162,11 @@
         const risultato = await result.json();
         console.log(risultato);
 
-        let minQuestionID = risultato.data.play.MOSSA;
+        let minQuestionID = parseInt(risultato.data.play.MOSSA);
+        if (index === 0) {
+          index = minQuestionID;
+        }
         let maxQuestionID = minQuestionID + 15;
-        console.log(quest);
-        console.log(minQuestionID);
         const questionsInRange = quest.slice(minQuestionID, maxQuestionID);
         document.getElementById("valoreDomanda").innerText = `Domanda ${stepId + 1} dal valore di €${money[`domanda${stepId + 1}`]}`; // stepId è zero-based, quindi aggiungo 1 per ottenere il valore corretto
         document.getElementById("testoDomanda").innerText = questionsInRange[stepId].domanda;
@@ -185,6 +191,10 @@
       $(document).ready(function() {
         $('#correctAnswerModal').modal({show:false});
 
+        $('#bar-container').hide();
+        setTimeout(function() {
+          $('#bar-container').show();
+        }, 2000);
       });
 
       function showHideModal() {
@@ -196,6 +206,19 @@
 
       function delay(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));
+      }
+
+      let progress = 0;
+
+      function progressBarUpdate() {
+        progress += 100 / 15;
+        if (progress > 100) {
+          progress = 100;
+        }
+
+        let bar = document.getElementById('progress-bar');
+        bar.style.width = progress + '%';
+        bar.setAttribute('aria-valuenow', progress);
       }
       
       async function answered(answerId) {
@@ -210,11 +233,15 @@
         answ.innerText = "L'accendiamo...?";
         
         const modal = document.getElementById('modal-message');
+        console.log(index);
         const currentIndex = index;
 
         setTimeout(async function() {
           answ.classList.remove('blue-flash');
           answ.innerText = answText;
+          console.log(quest);
+          console.log(quest[currentIndex].risposta1, answText);
+          console.log(index, currentIndex);
           if (quest[currentIndex].risposta1 === answText) {
             for (let i = 0; i < buttons.length; i++) {
               buttons[i].classList.remove('no-click');
@@ -224,6 +251,7 @@
             modal.style.color = "green";
             modal.innerText = "Risposta corretta!";
             showHideModal();
+            progressBarUpdate();
             nextStep();
           } else {
             modal.style.color = "red";
