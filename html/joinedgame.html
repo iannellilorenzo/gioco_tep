@@ -16,6 +16,7 @@
         <h2>Ti sei unito alla partita</h2>
       </div>
       <div id="gioco" style="padding-top:20px">
+        <div id="timer">15</div>
         <div id="step1"> <!-- il gioco è gestito in step, dove ogni step corrisponde a una domanda, da -->
           <div class="question">
             <h4 id="valoreDomanda"></h4>
@@ -58,7 +59,7 @@
         <div id="progress-bar" class="progress-bar" role="progressbar" style="width: 0%;" aria-valuemin="0" aria-valuemax="100"></div>
       </div>
     </div>
-    <div id="timer">15</div>
+    
     <footer>
       <div>© 2024 Chi vuol essere milionario! Tutti i diritti riservati.</div>
     </footer>
@@ -252,6 +253,8 @@
       async function nextStep() {
         if (stepId < 15) {
           getAnswers();
+          clearInterval(timerId);
+          startTimer();
         } else {
           await delay(2000);
 
