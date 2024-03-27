@@ -27,6 +27,7 @@
         <div id="started" style="text-align:center; padding-top: 5px; padding-bottom: 10px;">
           <h2>La partita sta per cominciare</h2>
         </div>
+        <div id="timer">15</div>
         <div id="step1"> <!-- il gioco è gestito in step, dove ogni step corrisponde a una domanda, da -->
           <div class="question">
             <h4 id="valoreDomanda"></h4>
@@ -53,6 +54,7 @@
             </div>
           </div>
         </div>
+        <audio id="accendiamo" src="../assets/gerry_scotti/acc_one_sec.mp4" type="audio/mp4" class="invisible"></audio>
         <div id="correctAnswerModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="correctAnswerModalLabel" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -69,7 +71,7 @@
         <div id="progress-bar" class="progress-bar" role="progressbar" style="width: 0%;" aria-valuemin="0" aria-valuemax="100"></div>
       </div>
     </div>
-    <div id="timer">15</div>
+    <audio id="dopp_bravo" src="../assets/gerry_scotti/dopp_bravo.mp3" type="audio/mp3" class="invisible"></audio>
     <footer>
       <div>© 2024 Chi vuol essere milionario! Tutti i diritti riservati.</div>
     </footer>
@@ -142,11 +144,6 @@
         "domanda11": "30.000", "domanda12": "70.000", "domanda13": "150.000", "domanda14": "300.000", "domanda15": "1.000.000"
       };  // array per dire quanto vale ogni domanda
       let index = 0;
-
-      function rng(min, max) {
-        return Math.random() * (max - min) + min;
-      }
-
       let id;
 
       async function getQuestion() {
@@ -174,20 +171,7 @@
         return questionsInRange;
       }
 
-      async function getAnswers() {
-        let supportArray = []; // array di supporto per la randomizzazione delle domande
-        const questAnsw = await getQuestion();
-        for (let i = 1; i <= 4; i++) {
-          let answIndex;
-          let randomNum;
-          do {
-            randomNum = Math.floor(rng(1, 5));
-            answIndex = `risposta${randomNum}`;
-          } while (supportArray.includes(randomNum));
-          supportArray.push(randomNum);
-          document.getElementById(`risposta${i}`).innerText = questAnsw[stepId][answIndex];
-        }
-      }
+      getAnswers();
 
       let timerId;
 
@@ -225,23 +209,6 @@
         }, 2000);
       }
 
-      function delay(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-      }
-
-      let progress = 0;
-
-      function progressBarUpdate() {
-        progress += 100 / 15;
-        if (progress > 100) {
-          progress = 100;
-        }
-
-        let bar = document.getElementById('progress-bar');
-        bar.style.width = progress + '%';
-        bar.setAttribute('aria-valuenow', progress);
-      }
-
       function gameOverMsg() {
         let doc = document.getElementsByClassName('cont')[0];
         doc.innerHTML = "";
@@ -252,51 +219,6 @@
         gameOver.innerText = "Hai perso! La tua vincita è di €" + money[`domanda${stepId}`];
         doc.appendChild(gameOver);
       }
-      
-      async function answered(answerId) {
-        let buttons = document.getElementsByClassName('risposta');
-        for (let i = 0; i < buttons.length; i++) {
-          buttons[i].classList.add('no-click');
-        }
-
-        const answ = document.getElementById(`risposta${answerId}`);
-        answ.classList.add('blue-flash');
-        const answText = answ.innerText;
-        answ.innerText = "L'accendiamo...?";
-        
-        const modal = document.getElementById('modal-message');
-        console.log(index);
-        const currentIndex = index;
-
-        setTimeout(async function() {
-          answ.classList.remove('blue-flash');
-          answ.innerText = answText;
-          console.log(quest);
-          console.log(quest[currentIndex].risposta1, answText);
-          console.log(index, currentIndex);
-          if (quest[currentIndex].risposta1 === answText) {
-            for (let i = 0; i < buttons.length; i++) {
-              buttons[i].classList.remove('no-click');
-            }
-            index++;
-            stepId++;
-            modal.style.color = "green";
-            modal.innerText = "Risposta corretta!";
-            showHideModal();
-            progressBarUpdate();
-            nextStep();
-          } else {
-            modal.style.color = "red";
-            modal.innerText = "Risposta sbagliata!";
-            showHideModal();
-
-            await delay(2000);
-            $('#bar-container').show();
-
-            gameOverMsg();
-          }
-        }, 2000);
-      }
 
       async function nextStep() {
         if (stepId < 15) {
@@ -304,16 +226,10 @@
           clearInterval(timerId);
           startTimer();
         } else {
-          await delay(2000);
-
-          let doc = document.getElementsByClassName('cont')[0];
-          doc.innerHTML = "";
-          let gameOver = document.createElement("h1");
-          gameOver.style.textAlign = "center";
-          gameOver.style.padding = "50px";
-          gameOver.style.color = "green";
-          gameOver.innerText = "Hai vinto! La tua vincita è di €" + money[`domanda${stepId}`];
-          doc.appendChild(gameOver);
+          await playerWon();
+          const bar = document.getElementById('bar-container');
+          bar.classList.remove('progress-container');
+          bar.classList.add('invisible');
         }
       }
 
