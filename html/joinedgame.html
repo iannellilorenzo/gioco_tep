@@ -43,6 +43,7 @@
             </div>
           </div>
         </div>
+        <audio id="accendiamo" src="../assets/gerry_scotti/accendiamo.mp4" type="audio/mp4" class="invisible"></audio>
         <div id="correctAnswerModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="correctAnswerModalLabel" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -199,6 +200,9 @@
       }
 
       function gameOverMsg() {
+        const bar = document.getElementById('bar-container');
+        bar.classList.remove('progress-container');
+        bar.classList.add('invisible');
         let doc = document.getElementsByClassName('cont')[0];
         doc.innerHTML = "";
         let gameOver = document.createElement("h1");
@@ -218,6 +222,7 @@
         const answ = document.getElementById(`risposta${answerId}`);
         answ.classList.add('blue-flash');
         const answText = answ.innerText;
+        document.getElementById('accendiamo').play();
         answ.innerText = "L'accendiamo...?";
         
         const modal = document.getElementById('modal-message');
