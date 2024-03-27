@@ -43,7 +43,7 @@
             </div>
           </div>
         </div>
-        <audio id="accendiamo" src="../assets/gerry_scotti/accendiamo_gerry_one_sec.mp4" type="audio/mp4" class="invisible"></audio>
+        <audio id="accendiamo" src="../assets/gerry_scotti/accendiamo_two_secs.mp4" type="audio/mp4" class="invisible"></audio>
         <div id="correctAnswerModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="correctAnswerModalLabel" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -55,6 +55,7 @@
         </div>
       </div>
     </div>
+    <audio id="dopp_bravo" src="../assets/gerry_scotti/doppiamente_bravo.mp3" type="audio/mp3" class="invisible"></audio>
     <div id="bar-container" class="progress-container">
       <div class="progress">
         <div id="progress-bar" class="progress-bar" role="progressbar" style="width: 0%;" aria-valuemin="0" aria-valuemax="100"></div>
@@ -279,7 +280,7 @@
           startTimer();
         } else {
           await delay(2000);
-
+          document.getElementById('dopp_bravo').play();
           let doc = document.getElementsByClassName('cont')[0];
           doc.innerHTML = "";
           let gameOver = document.createElement("h1");
