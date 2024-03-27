@@ -43,7 +43,7 @@
             </div>
           </div>
         </div>
-        <audio id="accendiamo" src="../assets/gerry_scotti/accendiamo.mp4" type="audio/mp4" class="invisible"></audio>
+        <audio id="accendiamo" src="../assets/gerry_scotti/accendiamo_gerry_one_sec.mp4" type="audio/mp4" class="invisible"></audio>
         <div id="correctAnswerModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="correctAnswerModalLabel" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -136,9 +136,25 @@
         }
       }
 
+      function disableButtons() {
+        let buttons = document.getElementsByClassName('risposta');
+        for (let i = 0; i < buttons.length; i++) {
+          buttons[i].disabled = true;
+        }
+      }
+
+      function enableButtons() {
+        let buttons = document.getElementsByClassName('risposta');
+        for (let i = 0; i < buttons.length; i++) {
+          buttons[i].disabled = false;
+        }
+      }
+
+      disableButtons();
+
       let timerId;
 
-      function startTimer() {
+      async function startTimer() {
         let timer = 15;
         const timerElement = document.getElementById('timer');
         timerElement.innerText = timer;
@@ -172,6 +188,7 @@
           $('#joined').hide();
           $('#bar-container').show();
           startTimer();
+          enableButtons();
         }, 2000);
       });
 
@@ -252,7 +269,7 @@
 
             gameOverMsg();
           }
-        }, 2000);
+        }, 1000);
       }
 
       async function nextStep() {
