@@ -24,10 +24,28 @@
       </form>
       <form onsubmit="return false">
         <div class="center">
-          <button type="button" class="center display-games" onclick="getAvailableGame()">Mostra partite disponibili</button>
+          <button type="button" class="center display-games" onclick="getAvailableGame()" data-toggle="modal" data-target="#displayModal">Mostra partite disponibili</button>
         </div>
       </form>
-      <div id="displayGames" class="center"></div>
+      <div class="modal fade" id="displayModal" tabindex="-1" role="dialog" aria-labelledby="displayModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="displayModalLabel">Partite disponibili</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body" id="modalText">
+              <!-- Modal body -->
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="close-modal" data-dismiss="modal">Close</button>
+              <button type="button" class="refresh-modal" onclick="getAvailableGame()">Refresh</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <footer>
       <div>© 2024 Chi vuol essere milionario! Tutti i diritti riservati.</div>
@@ -72,8 +90,8 @@
       }
 
       function getAvailableGame() {
-        let disp = document.getElementById("displayGames");
-        disp.innerText = "";
+        let modalBody = document.getElementById("modalText");
+        modalBody.innerText = "";
         var xhr = new XMLHttpRequest();
         xhr.withCredentials = true;
 
@@ -81,23 +99,25 @@
           if(this.readyState === 4) {
             let games = new Array;
             games = JSON.parse(this.responseText).data;
-            games.forEach(game => {
+            games.slice(0, 50).forEach(game => {
               if (game['PLAYER1'] === "IANNELLI_milionario") {
                 var playersInGame = [];
-                for(var i = 1; i < 8; i++) {
+                for(var i = 2; i < 8; i++) {
                   if (game['PLAYER' + i] !== null) {
                     playersInGame.push(game['PLAYER' + i]);
                   }
                 }
-                
+                if (playersInGame.length === 0) {
+                  playersInGame.push("Nessun giocatore");
+                }
                 var playersInGamePrint = playersInGame.join(', ');
-                disp.innerText += `ID Partita: ${game.ID}; Giocatori all'interno: ${playersInGamePrint}\n`;
+                modalBody.innerHTML += `ID Partita: ${game.ID}; Giocatori all'interno: ${playersInGamePrint}<br>`;
               }
             });
           }
         });
 
-        xhr.open("GET", "https://classe5ID.altervista.org/games/partita/");
+        xhr.open("GET", "https://classe5ID.altervista.org/games/partitaN/3");
         xhr.setRequestHeader("Authorization", "Basic NElFOlRpcm9uaQ==");
 
         xhr.send();

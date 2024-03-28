@@ -21,6 +21,64 @@ main {
     padding: 20px;
 }
 
+.close-modal {
+    display: inline-block;
+    font-weight: 400;
+    color: #fff;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    background-color: #6c757d;
+    border: 1px solid #6c757d;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.close-modal:hover {
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+.close-modal:focus, .close-modal.focus {
+    box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.5);
+}
+
+.close-modal:disabled, .close-modal.disabled {
+    opacity: .65;
+}
+
+.refresh-modal {
+    display: inline-block;
+    font-weight: 400;
+    color: #fff;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    background-color: #186049;
+    border: 1px solid #186049;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.refresh-modal:hover {
+    background-color: #247158;
+    border-color: #247158;
+}
+
+.refresh-modal:focus, .refresh-modal.focus {
+    box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.5);
+}
+
+.refresh-modal:disabled, .refresh-modal.disabled {
+    opacity: .65;
+}
+
 .center {
     margin-bottom: 20px;
     text-align: center;
