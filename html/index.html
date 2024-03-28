@@ -12,20 +12,22 @@
       <h1>Chi vuol essere milionario!</h1>
     </header>
     <div class="container cont">
-      <form class="center" onsubmit="return false">
-        <button class="create-game btn btn-warning rounded-pill btn-lg" onclick="createGame()">Crea partita</button>
+      <form id="formCreate" class="center" onsubmit="return false">
         <br>
-        <input type="text" id="username" placeholder="Nome">
-        <input type="text" id="gameid" placeholder="ID partita">
+        <input type="text" id="hostName" placeholder="Nome" required>
+        <button class="join-game" onclick="createGame()">Crea partita</button>
+      </form>
+      <form id="formJoin" class="center" onsubmit="return false">
+        <input type="text" id="joinName" placeholder="Nome" required>
+        <input type="text" id="gameid" placeholder="ID partita" required>
         <button class="join-game" onclick="joinGame()">Unisciti a una partita</button>
       </form>
-      <hr>
       <form onsubmit="return false">
         <div class="center">
           <button type="button" class="center display-games" onclick="getAvailableGame()">Mostra partite disponibili</button>
         </div>
       </form>
-      <div id="displayGames"></div>
+      <div id="displayGames" class="center"></div>
     </div>
     <footer>
       <div>© 2024 Chi vuol essere milionario! Tutti i diritti riservati.</div>
@@ -37,6 +39,11 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script>
       function createGame() {
+        if (document.getElementById("hostName").value === "") {
+          alert("Inserisci un nome valido.");
+          return;
+        }
+        localStorage.setItem("hostName", document.getElementById("hostName").value);
         window.open("../html/newgame.html", "_blank");
       }
 
@@ -51,7 +58,7 @@
         };
 
         const gameID = document.getElementById("gameid").value;
-        const username = document.getElementById("username").value;
+        const username = document.getElementById("hostName").value;
 
         if (gameID === "" || username === "") {
           alert("Inserisci un nome e un ID partita");
@@ -65,7 +72,7 @@
       }
 
       function getAvailableGame() {
-        var disp = document.getElementById("displayGames");
+        let disp = document.getElementById("displayGames");
         disp.innerText = "";
         var xhr = new XMLHttpRequest();
         xhr.withCredentials = true;
@@ -73,7 +80,7 @@
         xhr.addEventListener("readystatechange", function() {
           if(this.readyState === 4) {
             let games = new Array;
-            games = jQuery.parseJSON(this.responseText).data;
+            games = JSON.parse(this.responseText).data;
             games.forEach(game => {
               if (game['PLAYER1'] === "IANNELLI_milionario") {
                 var playersInGame = [];

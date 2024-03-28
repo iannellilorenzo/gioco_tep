@@ -1,3 +1,19 @@
+async function joinHost() {
+  const id = await getGameID();
+  const hostName = localStorage.getItem("hostName");
+  const myHeaders = new Headers();
+  myHeaders.append("Authorization", "Basic NElFOlRpcm9uaQ==");
+
+  const requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    redirect: "follow"
+  };
+
+  await fetch(`https://classe5ID.altervista.org/games/join/${id}/${hostName}`, requestOptions);
+  return id;
+}
+
 async function getGameID() {
   const myHeaders = new Headers();
   myHeaders.append("Authorization", "Basic NElFOlRpcm9uaQ==");
@@ -11,6 +27,7 @@ async function getGameID() {
   const result = await fetch("https://classe5ID.altervista.org/games/partita/IANNELLI_milionario", requestOptions);
   const risultato = await result.json();
   const id = await risultato.data.id;
+  console.log(id);
   return id;
 }
 

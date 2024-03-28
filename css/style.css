@@ -94,16 +94,6 @@ a:hover {
     width: 100%;
 }
 
-.create-game {
-    margin: 20px;
-    padding: 20px;
-    background-color: #186049 !important;
-    border-radius: 30px;
-    text-align: center;
-    color: #e4d5c7 !important;
-    border-color: #186049 !important;
-}
-
 input {
     padding: 10px;
     font-size: 16px;
@@ -143,12 +133,13 @@ button:hover {
     padding: 20px;
     background-color: #e4d5c7;
     border-radius: 30px;
-    border:2px solid #0c7530;
+    border:2px solid#0c7530;
     text-align: center;
     color: #186049;
 }
 
 .display-games {
+    margin-top: 30px;
     padding: 10px 20px;
     font-size: 16px;
     border: none;

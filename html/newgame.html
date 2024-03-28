@@ -92,7 +92,7 @@
       }
 
       async function printGameID() {
-        gameId = await getGameID();
+        gameId = await joinHost(); // joinHost ha al suo intero un richiamo alla funzione che genera la partita con nome statico IANNELLI_milionario, per gestire meglio la stampa delle partite disponibili
         console.log(gameId);
         document.getElementById("gameid").innerText = gameId;
       }
