@@ -106,7 +106,8 @@
           redirect: "follow"
         };
 
-        const gameId = await getGameID() - 1;
+        const gameId = localStorage.getItem("gameId");
+        localStorage.removeItem("gameId");
         const result = await fetch(`https://classe5ID.altervista.org/games/mossa/${gameId}/IANNELLI_milionario/${minQuestionID - 1}`, requestOptions);
         const risultato = await result.json();
         console.log(risultato);

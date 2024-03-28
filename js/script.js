@@ -11,6 +11,7 @@ async function joinHost() {
   };
 
   await fetch(`https://classe5ID.altervista.org/games/join/${id}/${hostName}`, requestOptions);
+  localStorage.removeItem("hostName");
   return id;
 }
 

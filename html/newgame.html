@@ -93,11 +93,9 @@
 
       async function printGameID() {
         gameId = await joinHost(); // joinHost ha al suo intero un richiamo alla funzione che genera la partita con nome statico IANNELLI_milionario, per gestire meglio la stampa delle partite disponibili
-        console.log(gameId);
+        localStorage.setItem("gameId", gameId);
         document.getElementById("gameid").innerText = gameId;
       }
-
-      let json;
 
       async function getJson() {
         const myHeaders = new Headers();
@@ -109,12 +107,14 @@
           redirect: "follow"
         };
 
-        const result = await fetch("https://classe5ID.altervista.org/games/partitaN/3", requestOptions);
-        json = await result.json();
+        const result = await fetch("https://classe5ID.altervista.org/games/partitaN/7", requestOptions);
+        const jsonData = await result.json();
+        return jsonData;
       }
 
       async function waitForPlayer() {
-        await getJson();
+        let json = await getJson();
+        console.log(json);
         let index = 0;
         while(index < json.data.length) {
           if(json.data[index].ID == gameId) {
@@ -124,12 +124,13 @@
         }
 
         while(true) {
-          await getJson();
-          if(json.data[index].PLAYER2 != null) {
-            console.log("Player 2 joined");
+          json = await getJson();
+          console.log(json);
+          if(json.data[index].PLAYER3 != null) {
+            console.log("Player 2 joined the game!")
             break;
           }
-          await delay(100);
+          await delay(1000);
         }
 
         await startGame();
@@ -143,7 +144,7 @@
         "domanda6": "5.000", "domanda7": "7.000", "domanda8": "10.000", "domanda9": "15.000", "domanda10": "20.000",
         "domanda11": "30.000", "domanda12": "70.000", "domanda13": "150.000", "domanda14": "300.000", "domanda15": "1.000.000"
       };  // array per dire quanto vale ogni domanda
-      let index = 0;
+      let gameIndex = 0;
       let id;
 
       async function getQuestion() {
@@ -155,14 +156,12 @@
           headers: myHeaders,
           redirect: "follow"
         };
-        console.log(gameId);
         const result = await fetch(`https://classe5ID.altervista.org/games/mossa/${gameId}`, requestOptions);
         const risultato = await result.json();
-        console.log(risultato);
 
         let minQuestionID = parseInt(risultato.data.play.MOSSA);
-        if (index === 0) {
-          index = minQuestionID;
+        if (gameIndex === 0) {
+          gameIndex = minQuestionID;
         }
         let maxQuestionID = minQuestionID + 15;
         const questionsInRange = quest.slice(minQuestionID, maxQuestionID);

@@ -40,8 +40,8 @@
               <!-- Modal body -->
             </div>
             <div class="modal-footer">
-              <button type="button" class="close-modal" data-dismiss="modal">Close</button>
-              <button type="button" class="refresh-modal" onclick="getAvailableGame()">Refresh</button>
+              <button type="button" class="close-modal" data-dismiss="modal">Chiudi</button>
+              <button type="button" class="refresh-modal" onclick="getAvailableGame()">Ricarica</button>
             </div>
           </div>
         </div>
@@ -76,7 +76,7 @@
         };
 
         const gameID = document.getElementById("gameid").value;
-        const username = document.getElementById("hostName").value;
+        const username = document.getElementById("joinName").value;
 
         if (gameID === "" || username === "") {
           alert("Inserisci un nome e un ID partita");
@@ -86,7 +86,7 @@
         const result = await fetch(`https://classe5ID.altervista.org/games/join/${gameID}/${username}`, requestOptions);
         await console.log(result);
         
-        window.open("../html/joinedgame.html", "_blank");
+        await window.open("../html/joinedgame.html", "_blank");
       }
 
       function getAvailableGame() {
@@ -107,6 +107,7 @@
                     playersInGame.push(game['PLAYER' + i]);
                   }
                 }
+
                 if (playersInGame.length === 0) {
                   playersInGame.push("Nessun giocatore");
                 }
