@@ -1,130 +1,162 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Chi vuol essere milionario!</title>
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  </head>
-  <body>
-    <header class="head">
-      <h1>Chi vuol essere milionario!</h1>
-    </header>
-    <div class="container cont">
-      <form id="formCreate" class="center" onsubmit="return false">
-        <br>
-        <input type="text" id="hostName" placeholder="Nome" required>
-        <button class="join-game" onclick="createGame()">Crea partita</button>
-      </form>
-      <form id="formJoin" class="center" onsubmit="return false">
-        <input type="text" id="joinName" placeholder="Nome" required>
-        <input type="text" id="gameid" placeholder="ID partita" required>
-        <button class="join-game" onclick="joinGame()">Unisciti a una partita</button>
-      </form>
-      <form onsubmit="return false">
-        <div class="center">
-          <button type="button" class="center display-games" onclick="getAvailableGame()" data-toggle="modal" data-target="#displayModal">Mostra partite disponibili</button>
-        </div>
-      </form>
-      <div class="modal fade" id="displayModal" tabindex="-1" role="dialog" aria-labelledby="displayModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="displayModalLabel">Partite disponibili</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body" id="modalText">
-              <!-- Modal body -->
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="close-modal" data-dismiss="modal">Chiudi</button>
-              <button type="button" class="refresh-modal" onclick="getAvailableGame()">Ricarica</button>
-            </div>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Chi vuol essere milionario!</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+  <header class="head">
+    <h1>Chi vuol essere milionario!</h1>
+  </header>
+  <div id="overlay" class="overlay"></div>
+
+  <div id="cookie-banner" class="cookie-banner">
+    Questo sito utilizzo i cookie per garantire la migliore esperienza possibile.
+    <button id="accept-cookies" class="accept-cookies">Accept</button>
+  </div>
+  <div class="container cont">
+    <form id="formCreate" class="center" onsubmit="return false">
+      <br>
+      <input type="text" id="hostName" placeholder="Nome" required>
+      <button class="join-game" onclick="createGame()">Crea partita</button>
+    </form>
+    <form id="formJoin" class="center" onsubmit="return false">
+      <input type="text" id="joinName" placeholder="Nome" required>
+      <input type="text" id="gameid" placeholder="ID partita" required>
+      <button class="join-game" onclick="joinGame()">Unisciti a una partita</button>
+    </form>
+    <form onsubmit="return false">
+      <div class="center">
+        <button type="button" class="center display-games" onclick="getAvailableGame()" data-toggle="modal"
+          data-target="#displayModal">Mostra partite disponibili</button>
+      </div>
+    </form>
+    <div class="modal fade" id="displayModal" tabindex="-1" role="dialog" aria-labelledby="displayModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="displayModalLabel">Partite disponibili</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" id="modalText">
+            <!-- Modal body -->
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="close-modal" data-dismiss="modal">Chiudi</button>
+            <button type="button" class="refresh-modal" onclick="getAvailableGame()">Ricarica</button>
           </div>
         </div>
       </div>
     </div>
-    <footer>
-      <div>© 2024 Chi vuol essere milionario! Tutti i diritti riservati.</div>
-    </footer>
+  </div>
+  <footer>
+    <div>© 2024 Chi vuol essere milionario! Tutti i diritti riservati.</div>
+  </footer>
 
-    <script src="../js/script.js"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script>
-      function createGame() {
-        if (document.getElementById("hostName").value === "") {
-          alert("Inserisci un nome valido.");
-          return;
-        }
-        localStorage.setItem("hostName", document.getElementById("hostName").value);
-        window.open("../html/newgame.html", "_blank");
+  <script src="../js/script.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+  <script>
+    window.onload = function () {
+      var banner = document.getElementById('cookie-banner');
+      var acceptButton = document.getElementById('accept-cookies');
+      var overlay = document.getElementById('overlay');
+
+      banner.style.display = 'block';
+      overlay.style.display = 'block';
+
+      acceptButton.onclick = function () {
+        banner.style.display = 'none';
+        overlay.style.display = 'none';
+      }
+    }
+
+    function createGame() {
+      if (document.getElementById("hostName").value === "") {
+        alert("Inserisci un nome valido.");
+        return;
+      }
+      localStorage.setItem("hostName", document.getElementById("hostName").value);
+      window.open("../html/newgame.html", "_blank");
+    }
+
+    async function joinGame() {
+      const myHeaders = new Headers();
+      myHeaders.append("Authorization", "Basic NElFOlRpcm9uaQ==");
+
+      const requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        redirect: "follow"
+      };
+
+      const gameID = document.getElementById("gameid").value;
+      const username = document.getElementById("joinName").value;
+      localStorage.setItem("guestName", username);
+
+      if (gameID === "" || username === "") {
+        alert("Inserisci un nome e un ID partita");
+        return;
       }
 
-      async function joinGame() {
-        const myHeaders = new Headers();
-        myHeaders.append("Authorization", "Basic NElFOlRpcm9uaQ==");
+      const result = await fetch(`https://classe5ID.altervista.org/games/join/${gameID}/${username}`, requestOptions);
 
-        const requestOptions = {
-          method: "POST",
-          headers: myHeaders,
-          redirect: "follow"
-        };
+      await window.open("../html/joinedgame.html", "_blank");
+    }
 
-        const gameID = document.getElementById("gameid").value;
-        const username = document.getElementById("joinName").value;
-        localStorage.setItem("guestName", username);
+    function getAvailableGame() {
+      let modalBody = document.getElementById("modalText");
+      modalBody.innerText = "";
+      var xhr = new XMLHttpRequest();
+      xhr.withCredentials = true;
 
-        if (gameID === "" || username === "") {
-          alert("Inserisci un nome e un ID partita");
-          return;
-        }
-        
-        const result = await fetch(`https://classe5ID.altervista.org/games/join/${gameID}/${username}`, requestOptions);
-        
-        await window.open("../html/joinedgame.html", "_blank");
-      }
-
-      function getAvailableGame() {
-        let modalBody = document.getElementById("modalText");
-        modalBody.innerText = "";
-        var xhr = new XMLHttpRequest();
-        xhr.withCredentials = true;
-
-        xhr.addEventListener("readystatechange", function() {
-          if(this.readyState === 4) {
-            let games = new Array;
-            games = JSON.parse(this.responseText).data;
-            games.slice(0, 50).forEach(game => {
-              if (game['PLAYER1'] === "IANNELLI_milionario") {
-                var playersInGame = [];
-                for(var i = 2; i < 8; i++) {
-                  if (game['PLAYER' + i] !== null) {
-                    playersInGame.push(game['PLAYER' + i]);
-                  }
+      xhr.addEventListener("readystatechange", function () {
+        if (this.readyState === 4) {
+          let games = new Array;
+          games = JSON.parse(this.responseText).data;
+          games.slice(0, 50).forEach(game => {
+            if (game['PLAYER1'] === "IANNELLI_milionario") {
+              var playersInGame = [];
+              for (var i = 2; i < 8; i++) {
+                if (game['PLAYER' + i] !== null) {
+                  playersInGame.push(game['PLAYER' + i]);
                 }
-
-                if (playersInGame.length === 0) {
-                  playersInGame.push("Nessun giocatore");
-                }
-                var playersInGamePrint = playersInGame.join(', ');
-                modalBody.innerHTML += `ID Partita: ${game.ID}; Giocatori all'interno: ${playersInGamePrint}<br>`;
               }
-            });
-          }
-        });
 
-        xhr.open("GET", "https://classe5ID.altervista.org/games/partitaN/3");
-        xhr.setRequestHeader("Authorization", "Basic NElFOlRpcm9uaQ==");
+              if (playersInGame.length === 0) {
+                playersInGame.push("Nessun giocatore");
+              }
+              var playersInGamePrint = playersInGame.join(', ');
+              modalBody.innerHTML += `ID Partita: ${game.ID}; Giocatori all'interno: ${playersInGamePrint}<br>`;
+            }
+          });
+        }
+      });
 
-        xhr.send();
-      }
-    </script>
-  
-    
-  </body>
+      xhr.open("GET", "https://classe5ID.altervista.org/games/partitaN/3");
+      xhr.setRequestHeader("Authorization", "Basic NElFOlRpcm9uaQ==");
+
+      xhr.send();
+    }
+  </script>
+
+
+</body>
+
 </html>
