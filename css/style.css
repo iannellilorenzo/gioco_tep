@@ -254,22 +254,22 @@ button:hover {
 
 body .progress-container {
     position: absolute;
-    width: 100%; /* Full width */
-    bottom: 10%; /* Position at the bottom of the parent div */
+    width: 100%;
+    bottom: 10%; 
     left: 0;
 }
 
 body .progress-container .progress {
     height: 10px;
     background-color: #e4d5c7;
-    width: 75%; /* Adjust to desired width */
-    margin: 0 auto; /* Center the progress bar */
+    width: 75%; 
+    margin: 0 auto; 
 }
 
 body .progress-container .progress .progress-bar {
     background-color: #0c7530;
     transition: width 0.6s ease;
-    width: 0%; /* Initial width */
+    width: 0%;
 }
 
 button.risposta:disabled {
@@ -292,29 +292,29 @@ button.risposta:disabled {
 
 .small-round-button {
     display: inline-block;
-    padding: 12px 17px; /* Adjust as needed */
-    font-size: 14px; /* Adjust as needed */
-    color: #d3d3d3; /* dark grey */
-    background-color: #0c7530; /* green */
+    padding: 12px 17px;
+    font-size: 14px;
+    color: #d3d3d3;
+    background-color: #0c7530;
     border: none;
-    border-radius: 50px; /* high value to create round corners */
+    border-radius: 50px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    white-space: nowrap; /* Prevent text from wrapping */
-    min-width: 200px; /* Ensure buttons are at least this wide */
-    text-align: center; /* Center the text within the buttons */
+    white-space: nowrap; 
+    min-width: 200px; 
+    text-align: center; 
     margin-top: -9%;
 }
 
 .small-round-button:hover {
-    background-color: #b8a89b; /* light brown */
-    color: #0c7530; /* green */
+    background-color: #b8a89b;
+    color: #0c7530; 
 }
 
 #aiuti {
-    display: flex; /* Align children in a row */
-    justify-content: center; /* Center children horizontally */
-    margin-bottom: 20px; /* Add space at the bottom */
+    display: flex;
+    justify-content: center; 
+    margin-bottom: 20px;
 }
 
 .button-container {
@@ -323,7 +323,7 @@ button.risposta:disabled {
     align-items: center;
 }
 
-/* Responsive design */
+
 @media (min-width: 600px) {
     button {
         width: auto;

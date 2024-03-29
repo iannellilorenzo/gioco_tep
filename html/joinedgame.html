@@ -155,7 +155,6 @@
       };
 
       const gameId = localStorage.getItem("gameId");
-      localStorage.removeItem("gameId");
       const result = await fetch(`https://classe5ID.altervista.org/games/mossa/${gameId}/IANNELLI_milionario/${minQuestionID - 1}`, requestOptions);
       const risultato = await result.json();
       console.log(risultato);
@@ -242,6 +241,20 @@
       if (stepId < 15) {
         let buttons = Array.from(document.getElementsByClassName('risposta'));
         buttons.forEach(button => button.classList.remove('invisible'));
+
+        if (getOpponentStatus() == true) {
+          const modal = document.getElementById('modal-message');
+          modal.style.color = "red";
+          modal.innerText = "L'avversario ha vinto!";
+          showHideModal();
+
+          await delay(2000);
+
+          gameOverMsg();
+          return;
+        }
+
+        sendPlayerStatus("guestName", false);
 
         getAnswers();
         clearInterval(timerId);

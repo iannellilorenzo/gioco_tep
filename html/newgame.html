@@ -207,13 +207,14 @@
       const result = await fetch(`https://classe5ID.altervista.org/games/mossa/${gameId}`, requestOptions);
       const risultato = await result.json();
 
-      let minQuestionID = parseInt(risultato.data.play.MOSSA);
+      let minQuestionID = parseInt(risultato.data.play.MOSSA); // ha senso solo per la prima iterazione, poi metto altre mosse
       if (gameIndex === 0) {
         gameIndex = minQuestionID;
         index = minQuestionID;
       }
-      let maxQuestionID = minQuestionID + 15;
-      const questionsInRange = quest.slice(minQuestionID, maxQuestionID);
+
+      const questionsInRange = await quest.slice(gameIndex, gameIndex + 15);
+      console.log(questionsInRange);
       document.getElementById("valoreDomanda").innerText = `Domanda ${stepId + 1} dal valore di €${money[`domanda${stepId + 1}`]}`; // stepId è zero-based, quindi aggiungo 1 per ottenere il valore corretto
       document.getElementById("testoDomanda").innerText = questionsInRange[stepId].domanda;
       return questionsInRange;
@@ -274,10 +275,25 @@
         let buttons = Array.from(document.getElementsByClassName('risposta'));
         buttons.forEach(button => button.classList.remove('invisible'));
 
-        getAnswers();
+        if (getOpponentStatus() == true) {
+          const modal = document.getElementById('modal-message');
+          modal.style.color = "red";
+          modal.innerText = "L'avversario ha vinto!";
+          showHideModal();
+
+          await delay(2000);
+
+          gameOverMsg();
+          return;
+        }
+
+        sendPlayerStatus("hostName", false);
+
+        await getAnswers();
         clearInterval(timerId);
         startTimer();
       } else {
+        sendPlayerStatus("hostName", true);
         await playerWon();
         const bar = document.getElementById('bar-container');
         bar.classList.remove('progress-container');
@@ -323,7 +339,7 @@
       const fiftyFifty = document.getElementById('fiftyFifty');
       fiftyFifty.disabled = true;
     }
-    
+
     function setupPercentages(randomNum, correctAnswerIndex) {
       let percentages = [0, 0, 0, 0];
       let highestPercentage = Math.floor(Math.random() * (71 - 40) + 40);

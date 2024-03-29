@@ -77,6 +77,7 @@
 
         const gameID = document.getElementById("gameid").value;
         const username = document.getElementById("joinName").value;
+        localStorage.setItem("guestName", username);
 
         if (gameID === "" || username === "") {
           alert("Inserisci un nome e un ID partita");

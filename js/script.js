@@ -11,7 +11,6 @@ async function joinHost() {
   };
 
   await fetch(`https://classe5ID.altervista.org/games/join/${id}/${hostName}`, requestOptions);
-  localStorage.removeItem("hostName");
   return id;
 }
 
@@ -108,12 +107,12 @@ async function answered(answerId) {
   const answText = answ.innerText;
   document.getElementById('accendiamo').play();
   answ.innerText = "L'accendiamo...?";
-  
+
   const modal = document.getElementById('modal-message');
   console.log(index);
   const currentIndex = index;
 
-  setTimeout(async function() {
+  setTimeout(async function () {
     answ.classList.remove('blue-flash');
     answ.innerText = answText;
     if (quest[currentIndex].risposta1 === answText) {
@@ -146,4 +145,41 @@ async function getQuest() {
   const response = await fetch(path);
   q = await response.json();
   return q;
+}
+
+async function getOpponentStatus() {
+  const myHeaders = new Headers();
+  myHeaders.append("Authorization", "Basic NElFOlRpcm9uaQ==");
+
+  const requestOptions = {
+    method: "GET",
+    headers: myHeaders,
+    redirect: "follow"
+  };
+
+  const id = localStorage.getItem("gameId");
+
+  const fet = await fetch(`https://classe5ID.altervista.org/games/mossa/${id}`, requestOptions);
+  const json = await fet.json();
+  const opponentStatus = await json.data.play.MOSSA;
+
+  return opponentStatus;
+}
+
+async function sendPlayerStatus(nameKey, status) {
+  const myHeaders = new Headers();
+  myHeaders.append("Authorization", "Basic NElFOlRpcm9uaQ==");
+
+  const requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    redirect: "follow"
+  };
+
+  const id = localStorage.getItem("gameId");
+  const playerName = localStorage.getItem(nameKey);
+
+  const fet = await fetch(`https://classe5id.altervista.org/games/mossa/${id}/${playerName}/${status}`, requestOptions);
+  const json = await fet.json();
+  return json;
 }
