@@ -51,15 +51,15 @@ async function getAnswers() {
   }
 }
 
-function disableButtons() {
-  let buttons = document.getElementsByClassName('risposta');
+function disableButtons(elemsByClassName) {
+  let buttons = document.getElementsByClassName(elemsByClassName);
   for (let i = 0; i < buttons.length; i++) {
     buttons[i].disabled = true;
   }
 }
 
-function enableButtons() {
-  let buttons = document.getElementsByClassName('risposta');
+function enableButtons(elemsByClassName) {
+  let buttons = document.getElementsByClassName(elemsByClassName);
   for (let i = 0; i < buttons.length; i++) {
     buttons[i].disabled = false;
   }
@@ -137,4 +137,13 @@ async function answered(answerId) {
       gameOverMsg();
     }
   }, 1000);
+}
+
+let q;
+
+async function getQuest() {
+  const path = "../assets/domande_risposte.json";
+  const response = await fetch(path);
+  q = await response.json();
+  return q;
 }
