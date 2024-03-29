@@ -173,7 +173,7 @@
       while (true) {
         json = await getJson();
         if (json.data[index].PLAYER3 != null) {
-          console.log("Player 2 joined the game!")
+          console.log("Player 2 joined the game!");
           break;
         }
         await delay(1000);
@@ -214,7 +214,6 @@
       }
 
       const questionsInRange = await quest.slice(gameIndex, gameIndex + 15);
-      console.log(questionsInRange);
       document.getElementById("valoreDomanda").innerText = `Domanda ${stepId + 1} dal valore di €${money[`domanda${stepId + 1}`]}`; // stepId è zero-based, quindi aggiungo 1 per ottenere il valore corretto
       document.getElementById("testoDomanda").innerText = questionsInRange[stepId].domanda;
       return questionsInRange;
@@ -324,7 +323,6 @@
       let buttons = Array.from(document.getElementsByClassName('risposta'));
       const questInRange = quest.slice(gameIndex, gameIndex + 15);
       let correctAnswer = questInRange[stepId].risposta1;
-      console.log(correctAnswer);
       let wrongAnswers = buttons.filter(button => button.innerText !== correctAnswer);
 
       for (let i = 0; i < 2; i++) {
@@ -381,12 +379,8 @@
       let correctAnswer = questInRange[stepId].risposta1;
 
       let correctAnswerIndex = buttons.findIndex(button => button.innerText === correctAnswer);
-
       let random = Math.floor(rng(1, 5));
-      console.log(random);
-
       let percentages = setupPercentages(random, correctAnswerIndex);
-      console.log(percentages);
 
       let modalBody = document.getElementById('helpModal').getElementsByClassName('modal-body')[0];
       modalBody.innerHTML = '';

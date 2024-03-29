@@ -27,7 +27,6 @@ async function getGameID() {
   const result = await fetch("https://classe5ID.altervista.org/games/partita/IANNELLI_milionario", requestOptions);
   const risultato = await result.json();
   const id = await risultato.data.id;
-  console.log(id);
   return id;
 }
 
@@ -109,7 +108,6 @@ async function answered(answerId) {
   answ.innerText = "L'accendiamo...?";
 
   const modal = document.getElementById('modal-message');
-  console.log(index);
   const currentIndex = index;
 
   setTimeout(async function () {
